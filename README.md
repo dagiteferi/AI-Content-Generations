@@ -1,16 +1,44 @@
 # Heritage Short
 
-A CLI pipeline that turns `storyboard.json` into a 60–90 s narrated, scored and subtitled short film, exported in 9:16 and 16:9.
+A CLI pipeline that turns `storyboard.json` into a 60–90 s narrated, scored and subtitled short film, exported in 9:16 and 16:9. Every stage reads the storyboard, writes to `outputs/`, caches by content hash and logs each model call to `runs.jsonl`.
 
-> Work in progress. Setup and usage are filled in as stages land.
+## Requirements
+- Python 3.12+ and [uv](https://docs.astral.sh/uv/)
+- FFmpeg (`sudo apt install ffmpeg`)
+- Free accounts: Gemini API key (Google AI Studio), Cloudflare (account id + Workers AI token), phone-verified Kaggle
 
-## Quick start (target)
+## Setup
 ```bash
-git clone <repo> && cd heritage-short
-cp .env.example .env      # add your keys
-uv sync
-make film
+git clone https://github.com/dagiteferi/AI-Content-Generations.git
+cd AI-Content-Generations
+cp .env.example .env      # fill in your keys
+make install
+make smoke                # one call per provider, latency logged to runs.jsonl
 ```
+
+## Usage
+| Command | What it does |
+|---|---|
+| `make validate` | Validate `storyboard.json` against the schema and consent records |
+| `make draft` | Draft `storyboard.json` from `story.md` with Gemini |
+| `make narration` | Generate narration per shot (Gemini TTS) |
+| `make radio` | Narration + placeholder music on black → `outputs/radio_cut/radio.mp4` |
+| `make film` | Run every implemented stage end to end |
+| `make test` | Unit tests |
+
+Finer control:
+```bash
+uv run heritage run --stage narration --shot s03   # one stage, one shot
+uv run heritage run --dry-run                      # what would regenerate, no calls
+uv run heritage run --force                        # ignore the cache
+```
+
+Edit one narration line in `storyboard.json` and re-run: only that shot's narration and the radio cut regenerate.
+
+## Status
+- [x] Phase 1: contract, schema, smoke test, storyboard drafting, narration, radio cut
+- [ ] Phase 2: reference sheet, keyframes, moving shots, music
+- [ ] Phase 3: assembly, both aspect ratios, end card
 
 ## Docs
 - [REQUIREMENTS.md](REQUIREMENTS.md): functional and non-functional requirements

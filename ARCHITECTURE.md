@@ -51,29 +51,29 @@ heritage-short/
 ├── schema/
 │   └── storyboard.schema.json  # generated from pipeline/models.py
 ├── pipeline/
-│   ├── models.py               # Pydantic: Storyboard, Shot, Narration, MusicCue, Character
+│   ├── cli.py                  # typer: validate, schema, smoke, draft, run
+│   ├── models.py               # Pydantic contract: Storyboard, Shot, Voice, MusicCue, Character
+│   ├── storyboard.py           # load/save, schema export, consent gate
 │   ├── config.py               # settings from env (pydantic-settings)
-│   ├── cli.py                  # typer: validate, run, smoke, report
-│   ├── orchestrator.py         # runs stages in dependency order, applies --stage/--shot
+│   ├── context.py              # StageContext: storyboard, settings, log, shot filter, flags
+│   ├── orchestrator.py         # runs stages in dependency order
+│   ├── smoke.py                # one call per provider, latency logged
+│   ├── errors.py               # expected failures with actionable messages
 │   ├── core/
-│   │   ├── cache.py            # cache keys + atomic writes
+│   │   ├── cache.py            # cache keys, file digests, atomic writes
 │   │   ├── runlog.py           # appends to runs.jsonl
-│   │   ├── retry.py            # backoff + attempt limit + fallback hook
-│   │   └── media.py            # ffprobe helpers (duration, loudness)
+│   │   ├── retry.py            # logged attempts + backoff on transient errors
+│   │   └── media.py            # ffmpeg/ffprobe helpers
 │   ├── providers/              # one adapter per external model/tool
-│   │   ├── base.py             # Protocols: TTSProvider, ImageProvider, VideoProvider, MusicProvider
+│   │   ├── base.py             # Protocols: TextModel, SpeechModel, ImageModel
 │   │   ├── gemini.py           # text + TTS
 │   │   ├── cloudflare.py       # FLUX on Workers AI
-│   │   ├── kaggle_wan.py       # submits/collects Wan 2.2 jobs
-│   │   ├── kenburns.py         # FFmpeg zoompan fallback (VideoProvider)
-│   │   └── acestep.py          # ACE-Step via Kaggle/Colab
+│   │   └── kaggle.py           # account check (GPU jobs in phase 2)
 │   └── stages/
-│       ├── narration.py
-│       ├── reference.py
-│       ├── keyframes.py
-│       ├── shots.py
-│       ├── music.py
-│       └── assemble.py
+│       ├── script.py           # brief -> storyboard (Gemini, validated with repair loop)
+│       ├── narration.py        # Gemini TTS per shot
+│       └── radio.py            # narration + placeholder music on black (phase 1)
+│                               # phase 2-3: reference, keyframes, shots, music, assemble
 ├── kaggle/                     # GPU notebooks/scripts for Wan 2.2 and ACE-Step
 ├── references/                 # approved reference sheet / golden reference images
 ├── outputs/                    # generated media (large files git-ignored, manifests kept)

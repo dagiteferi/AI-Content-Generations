@@ -1,11 +1,13 @@
 # Ethics: consent, licences, labelling
 
 ## Consent (recorded BEFORE generating anything of a real person)
-| Person (role) | Appears as | Consent for | How recorded | Date | Words in their mouth approved? |
-|---|---|---|---|---|---|
-| | face / likeness / voice / story | | | | |
+| Tag | Person (role) | Appears as | Consent for | How recorded | Date | Words in their mouth approved? |
+|---|---|---|---|---|---|---|
+| | | face / likeness / voice / story | | | | |
 
-> Gate: the pipeline refuses to run if `storyboard.json` marks a `real_person` without a `consent_ref`.
+> **Gate:** for every character with `"real_person": true`, the pipeline looks for the tag
+> `consent:<consent_ref>` in this file (e.g. `consent:grandmother` in the Tag column).
+> `heritage validate` and `heritage run` stop if the tag is missing.
 
 ## Licences
 | Model / tool | Licence | Output usage |
