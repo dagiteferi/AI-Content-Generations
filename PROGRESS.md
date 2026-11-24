@@ -12,7 +12,7 @@ Status as of **2026-11-24 (end of day)**. Phase 1 and 2 code is done; **Phase 3 
 | 4 | `make radio`, play it to **3+ people**, write user test 1 in `DESIGN.md` | run + you | **Phase 1 checkpoint** |
 | 5 | Let Claude read the ACE-Step 1.5 / Wan 2.2 / FLUX.2 docs; wire `acestep_music.py` | code | Music script runs |
 | 6 | `make pictures`, then `approve-reference`; check faces and hands | run | A keyframe for every shot |
-| 7 | `gpu export shots` → Kaggle → `gpu import`; same for `music`; choose the score | run | **Phase 2 checkpoint**; merge PR #3 |
+| 7 | `gpu export shots` → Kaggle → `gpu import`; same for `music`; choose the score | run | **Phase 2 checkpoint** |
 | 8 | **Phase 3 code**: assembly stage (both ratios, subtitles, ducking, end card, loudness) | code | `make film` produces two MP4s |
 | 9 | User test 2, then the docs, `COSTS.md` and about 10 `EXPERIMENTS.md` entries | run + you | Thursday morning |
 | 10 | Post, walkthrough, report, submit both assignments | you | **Thursday 23:59 EAT** |
@@ -24,9 +24,9 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 | Item | State |
 |---|---|
 | Repo | https://github.com/dagiteferi/AI-Content-Generations |
-| `main` | Docs and folder structure |
+| `main` | Phase 1 + Phase 2 code, all docs (up to date) |
 | `phase-1/story-and-radio-cut` | Merged into `main` (PR #2) |
-| `phase-2/pictures-and-music` | Phase 2 code, pushed. PR opened, **not merged** until it runs with real keys |
+| `phase-2/pictures-and-music` | Merged into `main` (PR #3). Next branch: `phase-3/edit-and-release` from `main` |
 | Committer | `dagiteferi <dagiteferi2011@gmail.com>` (repo-local git config) |
 | Tests | 31 passing (`make test`) |
 
@@ -59,7 +59,7 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 
 ## Remaining
 
-### Tomorrow morning: finish Phase 1 (the checkpoint)
+### Phase 1: real run still to do (the checkpoint)
 1. [ ] Install FFmpeg: `sudo apt install ffmpeg`
 2. [ ] `cp .env.example .env` and add the Gemini key, Cloudflare account id and token, and Kaggle username and key
 3. [ ] `make smoke`, then record the free-tier limits you find in `COSTS.md`
@@ -68,7 +68,7 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 6. [ ] `make draft` (or edit `storyboard.json` by hand), then `make validate`
 7. [ ] `make radio`, then play `outputs/radio_cut/radio.mp4` to **at least 3 people** from the audience
 8. [ ] Write their feedback and the storyboard changes in `DESIGN.md` (user test 1)
-9. [ ] Open the PR `phase-1/story-and-radio-cut` → `main` and merge it
+9. [x] PR `phase-1/story-and-radio-cut` merged into `main` (PR #2)
 
 ### Phase 2: pictures and music (branch `phase-2/pictures-and-music`)
 
@@ -95,7 +95,6 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 - [ ] `heritage gpu export shots`, run on Kaggle (480p drafts first), `heritage gpu import`
 - [ ] `heritage gpu export music`, run on Kaggle, listen under the narration, set `chosen_seed` and `choice_reason`
 - [ ] Write the real experiments in `EXPERIMENTS.md` and blockers in `FAILURES.md` as they happen
-- [ ] Merge the PR for `phase-2/pictures-and-music`
 - [ ] Checkpoint: a rough cut with a picture for every shot and the chosen score
 
 ### Phase 3: edit, release, explain (Thursday)
