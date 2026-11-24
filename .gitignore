@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# generated media (keep folder structure)
+outputs/**/*.png
+outputs/**/*.jpg
+outputs/**/*.wav
+outputs/**/*.mp3
+outputs/**/*.mp4
+outputs/**/*.tmp
+!outputs/**/.gitkeep
