@@ -1,0 +1,30 @@
+[project]
+name = "heritage-short"
+version = "0.1.0"
+description = "A CLI pipeline that turns a storyboard into a narrated, scored short film."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "google-genai>=2.25.0",
+    "httpx>=0.27",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "rich>=13.7",
+    "typer>=0.12",
+]
+
+[project.scripts]
+heritage = "pipeline.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

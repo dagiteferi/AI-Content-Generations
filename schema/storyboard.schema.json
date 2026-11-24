@@ -1,0 +1,440 @@
+{
+  "$defs": {
+    "Character": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9_-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 10,
+          "title": "Description",
+          "type": "string"
+        },
+        "reference_image": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Image"
+        },
+        "real_person": {
+          "default": false,
+          "title": "Real Person",
+          "type": "boolean"
+        },
+        "consent_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifier of this person's consent record in ETHICS.md.",
+          "title": "Consent Ref"
+        }
+      },
+      "required": [
+        "id",
+        "description"
+      ],
+      "title": "Character",
+      "type": "object"
+    },
+    "EndCard": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "duration_s": {
+          "default": 3.0,
+          "maximum": 5,
+          "minimum": 2,
+          "title": "Duration S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "EndCard",
+      "type": "object"
+    },
+    "Keyframe": {
+      "additionalProperties": false,
+      "properties": {
+        "prompt": {
+          "minLength": 10,
+          "title": "Prompt",
+          "type": "string"
+        },
+        "seed": {
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "model": {
+          "default": "@cf/black-forest-labs/flux-1-schnell",
+          "title": "Model",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prompt",
+        "seed"
+      ],
+      "title": "Keyframe",
+      "type": "object"
+    },
+    "Motion": {
+      "additionalProperties": false,
+      "properties": {
+        "prompt": {
+          "description": "Only the motion and the camera.",
+          "minLength": 5,
+          "title": "Prompt",
+          "type": "string"
+        },
+        "seed": {
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "model": {
+          "default": "wan2.2-ti2v-5b",
+          "title": "Model",
+          "type": "string"
+        },
+        "resolution": {
+          "default": "480p",
+          "enum": [
+            "480p",
+            "720p"
+          ],
+          "title": "Resolution",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prompt",
+        "seed"
+      ],
+      "title": "Motion",
+      "type": "object"
+    },
+    "Music": {
+      "additionalProperties": false,
+      "properties": {
+        "cues": {
+          "items": {
+            "$ref": "#/$defs/MusicCue"
+          },
+          "title": "Cues",
+          "type": "array"
+        },
+        "candidates": {
+          "default": 3,
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Candidates",
+          "type": "integer"
+        },
+        "chosen": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chosen"
+        },
+        "choice_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Choice Reason"
+        }
+      },
+      "title": "Music",
+      "type": "object"
+    },
+    "MusicCue": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "exclusiveMinimum": 0,
+          "title": "End S",
+          "type": "number"
+        },
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        },
+        "bpm": {
+          "anyOf": [
+            {
+              "maximum": 200,
+              "minimum": 40,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bpm"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Key"
+        },
+        "instrumental": {
+          "default": true,
+          "title": "Instrumental",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "start_s",
+        "end_s",
+        "caption"
+      ],
+      "title": "MusicCue",
+      "type": "object"
+    },
+    "Narration": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "description": "Spoken line in the narration language.",
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "subtitle": {
+          "description": "English subtitle for the line.",
+          "minLength": 1,
+          "title": "Subtitle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "subtitle"
+      ],
+      "title": "Narration",
+      "type": "object"
+    },
+    "Shot": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^s\\d{2}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "duration_s": {
+          "maximum": 15,
+          "minimum": 2,
+          "title": "Duration S",
+          "type": "number"
+        },
+        "purpose": {
+          "description": "Why this shot exists.",
+          "minLength": 5,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "shot_size": {
+          "enum": [
+            "extreme-wide",
+            "wide",
+            "medium",
+            "medium-close-up",
+            "close-up",
+            "extreme-close-up",
+            "insert"
+          ],
+          "title": "Shot Size",
+          "type": "string"
+        },
+        "camera": {
+          "title": "Camera",
+          "type": "string"
+        },
+        "characters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Characters",
+          "type": "array"
+        },
+        "keyframe": {
+          "$ref": "#/$defs/Keyframe"
+        },
+        "motion": {
+          "$ref": "#/$defs/Motion"
+        },
+        "narration": {
+          "$ref": "#/$defs/Narration"
+        },
+        "fallback": {
+          "default": "kenburns",
+          "enum": [
+            "kenburns",
+            "still",
+            "none"
+          ],
+          "title": "Fallback",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "duration_s",
+        "purpose",
+        "shot_size",
+        "camera",
+        "keyframe",
+        "motion",
+        "narration"
+      ],
+      "title": "Shot",
+      "type": "object"
+    },
+    "Voice": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "default": "gemini-3.8-flash-tts",
+          "title": "Model",
+          "type": "string"
+        },
+        "voice_name": {
+          "default": "Sulafat",
+          "title": "Voice Name",
+          "type": "string"
+        },
+        "style": {
+          "default": "calm, warm and unhurried",
+          "title": "Style",
+          "type": "string"
+        }
+      },
+      "title": "Voice",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1,
+      "default": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "title": {
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "language": {
+      "description": "BCP-47 code of the narration language, e.g. 'am'.",
+      "title": "Language",
+      "type": "string"
+    },
+    "subtitle_language": {
+      "default": "en",
+      "title": "Subtitle Language",
+      "type": "string"
+    },
+    "target_duration_s": {
+      "maximum": 90.0,
+      "minimum": 60.0,
+      "title": "Target Duration S",
+      "type": "number"
+    },
+    "style_block": {
+      "description": "Look appended to every image prompt.",
+      "minLength": 10,
+      "title": "Style Block",
+      "type": "string"
+    },
+    "characters": {
+      "items": {
+        "$ref": "#/$defs/Character"
+      },
+      "title": "Characters",
+      "type": "array"
+    },
+    "voice": {
+      "$ref": "#/$defs/Voice"
+    },
+    "music": {
+      "$ref": "#/$defs/Music"
+    },
+    "shots": {
+      "items": {
+        "$ref": "#/$defs/Shot"
+      },
+      "maxItems": 12,
+      "minItems": 8,
+      "title": "Shots",
+      "type": "array"
+    },
+    "end_card": {
+      "$ref": "#/$defs/EndCard"
+    }
+  },
+  "required": [
+    "title",
+    "language",
+    "target_duration_s",
+    "style_block",
+    "shots",
+    "end_card"
+  ],
+  "title": "Heritage Short storyboard",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
