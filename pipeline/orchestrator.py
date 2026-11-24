@@ -1,12 +1,16 @@
 from collections.abc import Callable
 
 from pipeline.context import StageContext
-from pipeline.stages import narration, radio
+from pipeline.stages import keyframes, music, narration, radio, reference, shots
 
 Stage = Callable[[StageContext], None]
 
 STAGES: dict[str, Stage] = {
     "narration": narration.run,
+    "reference": reference.run,
+    "keyframes": keyframes.run,
+    "shots": shots.run,
+    "music": music.run,
     "radio": radio.run,
 }
 

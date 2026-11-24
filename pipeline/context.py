@@ -12,6 +12,7 @@ STATUS_STYLES = {
     "generated": "green",
     "would generate": "yellow",
     "fallback": "magenta",
+    "waiting": "yellow",
     "skipped": "dim",
 }
 
@@ -39,4 +40,4 @@ class StageContext:
     def status(self, item: str, state: str, path: Path | None = None, note: str = "") -> None:
         style = STATUS_STYLES.get(state, "")
         location = f"  {path.relative_to(self.settings.root)}" if path else ""
-        self.console.print(f"  {item:<6} [{style}]{state:<15}[/]{location}  {note}".rstrip())
+        self.console.print(f"  {item:<12} [{style}]{state:<15}[/]{location}  {note}".rstrip())

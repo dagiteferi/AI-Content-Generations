@@ -1,5 +1,6 @@
+import shutil
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 import typer
 from pydantic import ValidationError
@@ -10,10 +11,12 @@ from pipeline.config import Settings
 from pipeline.context import StageContext
 from pipeline.core.runlog import RunLog
 from pipeline.errors import PipelineError
+from pipeline.gpu import export_bundle, import_results
 from pipeline.models import Storyboard
 from pipeline.orchestrator import STAGES, run_stages
 from pipeline.providers.gemini import GeminiText
 from pipeline.smoke import run_smoke
+from pipeline.stages.reference import candidate_path
 from pipeline.stages.script import draft_storyboard
 from pipeline.storyboard import (
     ensure_consent,
@@ -24,6 +27,8 @@ from pipeline.storyboard import (
 )
 
 app = typer.Typer(help="Heritage Short: storyboard in, film out.", no_args_is_help=True, add_completion=False)
+gpu_app = typer.Typer(help="Hand GPU jobs (video, music) to Kaggle and bring results back.", no_args_is_help=True)
+app.add_typer(gpu_app, name="gpu")
 console = Console()
 
 
@@ -138,6 +143,60 @@ def run(
     except ValueError as error:
         fail(str(error))
     console.print(f"[dim]run {ctx.log.run_id} logged to runs.jsonl[/]")
+
+
+@app.command("approve-reference")
+def approve_reference(
+    character: Annotated[str, typer.Argument(help="Character id, e.g. grandmother.")],
+    seed: Annotated[int, typer.Argument(help="Seed of the candidate to approve.")],
+) -> None:
+    """Approve a reference candidate as the character's golden reference."""
+    settings = Settings()
+    storyboard = load_valid_storyboard(settings)
+    match = next((c for c in storyboard.characters if c.id == character), None)
+    if match is None:
+        fail(f"No character '{character}' in storyboard.json")
+    candidate = candidate_path(settings.outputs_dir, match, storyboard, seed)
+    if not candidate.exists():
+        fail(f"No candidate for seed {seed}. Run: heritage run --stage reference")
+
+    target = settings.root / "references" / f"{character}.jpg"
+    target.parent.mkdir(exist_ok=True)
+    shutil.copy2(candidate, target)
+    match.reference_image = str(target.relative_to(settings.root))
+    save_storyboard(storyboard, settings.storyboard_path)
+    console.print(f"[green]approved[/]  {candidate.name} -> {match.reference_image}")
+
+
+@gpu_app.command("export")
+def gpu_export(
+    kind: Annotated[Literal["shots", "music"], typer.Argument(help="Which jobs to export.")],
+    all_jobs: Annotated[bool, typer.Option("--all", help="Include jobs whose output already exists.")] = False,
+) -> None:
+    """Write a job bundle (zip) to upload to Kaggle as a dataset."""
+    settings = Settings()
+    archive, count = export_bundle(settings, load_valid_storyboard(settings), kind, all_jobs)
+    console.print(f"[green]exported[/]  {count} {kind} job(s) -> {archive.relative_to(settings.root)}")
+    console.print("  next: upload it to Kaggle and follow kaggle/README.md")
+
+
+@gpu_app.command("import")
+def gpu_import(
+    source: Annotated[Path, typer.Argument(help="out.zip or folder downloaded from the notebook.")],
+) -> None:
+    """Import finished GPU outputs as cache hits and log them to runs.jsonl."""
+    settings = Settings()
+    if not source.exists():
+        fail(f"{source} not found")
+    summary = import_results(settings, load_valid_storyboard(settings), source, RunLog(settings.runs_path))
+    for label, items, style in (
+        ("imported", summary.imported, "green"),
+        ("already present", summary.already_present, "dim"),
+        ("failed on GPU", summary.failed, "red"),
+        ("stale (storyboard changed)", summary.stale, "yellow"),
+    ):
+        if items:
+            console.print(f"  [{style}]{label}:[/] {', '.join(items)}")
 
 
 def main() -> None:
