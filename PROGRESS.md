@@ -1,6 +1,23 @@
 # Progress
 
-Status as of **2026-11-24 (evening)**. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
+Status as of **2026-11-24 (end of day)**. Phase 1 and 2 code is done; **Phase 3 code** and **all real runs** remain. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
+
+## Plan for tomorrow (2026-11-25), in order
+
+| # | Task | Type | Done when |
+|---|---|---|---|
+| 1 | `sudo apt install ffmpeg`, fill in `.env`, `make smoke` | setup | Every smoke check is ok; record the limits you find in `COSTS.md` |
+| 2 | Write the story: `story.md`, `DESIGN.md` §1-2, consent in `ETHICS.md` if needed | you | Audience and feeling written down **before** generating |
+| 3 | `make draft` (or edit by hand), then `make validate` | run | Your real storyboard validates |
+| 4 | `make radio`, play it to **3+ people**, write user test 1 in `DESIGN.md` | run + you | **Phase 1 checkpoint** |
+| 5 | Let Claude read the ACE-Step 1.5 / Wan 2.2 / FLUX.2 docs; wire `acestep_music.py` | code | Music script runs |
+| 6 | `make pictures`, then `approve-reference`; check faces and hands | run | A keyframe for every shot |
+| 7 | `gpu export shots` → Kaggle → `gpu import`; same for `music`; choose the score | run | **Phase 2 checkpoint**; merge PR #3 |
+| 8 | **Phase 3 code**: assembly stage (both ratios, subtitles, ducking, end card, loudness) | code | `make film` produces two MP4s |
+| 9 | User test 2, then the docs, `COSTS.md` and about 10 `EXPERIMENTS.md` entries | run + you | Thursday morning |
+| 10 | Post, walkthrough, report, submit both assignments | you | **Thursday 23:59 EAT** |
+
+Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded while Kaggle jobs run in step 7.
 
 ## Where things stand
 
