@@ -23,6 +23,7 @@ make smoke                # one call per provider, latency logged to runs.jsonl
 | `make draft` | Draft `storyboard.json` from `story.md` with Gemini |
 | `make narration` | Generate narration per shot (Gemini TTS) |
 | `make radio` | Narration + placeholder music on black → `outputs/radio_cut/radio.mp4` |
+| `make pictures` | Reference candidates, keyframes, and shots (Ken Burns until GPU clips arrive) |
 | `make film` | Run every implemented stage end to end |
 | `make test` | Unit tests |
 
@@ -35,9 +36,17 @@ uv run heritage run --force                        # ignore the cache
 
 Edit one narration line in `storyboard.json` and re-run: only that shot's narration and the radio cut regenerate.
 
+GPU stages (video, music) run on Kaggle through a zip hand-off. See [kaggle/README.md](kaggle/README.md):
+```bash
+uv run heritage approve-reference grandmother 12   # pick the golden reference
+uv run heritage gpu export shots                   # -> kaggle/bundles/shots.zip
+uv run heritage gpu import ~/Downloads/out.zip     # clips become cache hits
+```
+
 ## Status
 - [x] Phase 1: contract, schema, smoke test, storyboard drafting, narration, radio cut
-- [ ] Phase 2: reference sheet, keyframes, moving shots, music
+- [x] Phase 2 (code): reference sheet, keyframes, Kaggle hand-off, Ken Burns fallback, music candidates
+- [ ] Phase 2 (run): real keyframes, Wan clips on Kaggle, ACE-Step wiring
 - [ ] Phase 3: assembly, both aspect ratios, end card
 
 ## Docs

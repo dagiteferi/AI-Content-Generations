@@ -1,6 +1,6 @@
 # Progress
 
-Status as of **2026-11-24**. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
+Status as of **2026-11-24 (evening)**. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
 
 ## Where things stand
 
@@ -8,9 +8,10 @@ Status as of **2026-11-24**. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both 
 |---|---|
 | Repo | https://github.com/dagiteferi/AI-Content-Generations |
 | `main` | Docs and folder structure |
-| `phase-1/story-and-radio-cut` | Phase 1 code, pushed. **Pull request not opened yet** |
+| `phase-1/story-and-radio-cut` | Merged into `main` (PR #2) |
+| `phase-2/pictures-and-music` | Phase 2 code, pushed. PR opened, **not merged** until it runs with real keys |
 | Committer | `dagiteferi <dagiteferi2011@gmail.com>` (repo-local git config) |
-| Tests | 17 passing (`make test`) |
+| Tests | 31 passing (`make test`) |
 
 ## Done
 
@@ -53,16 +54,31 @@ Status as of **2026-11-24**. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both 
 9. [ ] Open the PR `phase-1/story-and-radio-cut` → `main` and merge it
 
 ### Phase 2: pictures and music (branch `phase-2/pictures-and-music`)
-- [ ] Research the current APIs first: Wan 2.2 TI2V-5B (diffusers or the CLI on a T4), ACE-Step 1.5 (install and parameters), and the FLUX.2 klein multipart fields for reference images
-- [ ] **Reference stage**: character and style candidates with FLUX; approve one and save it as `references/<character>.jpg`
-- [ ] **Keyframes stage**: one still per shot, with the style block and character text added to every prompt (and the reference image, if FLUX.2 klein allows it); keep subjects centred for 9:16 and 16:9
-- [ ] **Shots stage**:
-  - `heritage gpu export` writes the jobs and keyframes as a bundle for Kaggle
-  - `kaggle/wan_shots.py` runs Wan 2.2 at 480p and saves each clip as soon as it's done
-  - `heritage gpu import` brings the clips back as cache hits and logs GPU seconds
-- [ ] **Ken Burns fallback**: rendered locally with FFmpeg `zoompan` for any shot that has no clip
-- [ ] **Music stage**: `kaggle/acestep_music.py` makes 3 candidates; choose one in `storyboard.json` (`music.chosen` and `choice_reason`)
-- [ ] Log every experiment in `EXPERIMENTS.md` and every blocker in `FAILURES.md`, as they happen
+
+**Done (code, tested with fake media):**
+- [x] Contract: `reference_seeds` per character, `motion.frames` (4k+1), `music.seeds`, `chosen_seed` and `choice_reason`
+- [x] **Reference stage**: one FLUX candidate per seed; `heritage approve-reference <char> <seed>` copies it to `references/` and updates the storyboard
+- [x] **Keyframes stage**: FLUX per shot; the prompt is the shot + character descriptions + "subject centred" + style block
+- [x] **Shots stage**: uses the imported Wan clip if there is one, else renders the shot's fallback (Ken Burns following the camera note, or a still)
+- [x] **GPU hand-off**:
+  - `heritage gpu export shots|music` builds a zip with jobs, images and scripts
+  - `kaggle/runner.py` is resumable and writes `results.jsonl`
+  - `heritage gpu import out.zip` copies back only expected outputs (stale ones are rejected) and logs GPU seconds
+- [x] **Music stage**: lists the candidates per seed and shows the chosen one
+- [x] `kaggle/wan_shots.py`: Wan 2.2 TI2V-5B via diffusers (`WanImageToVideoPipeline`)
+- [x] `kaggle/README.md`: step-by-step Kaggle guide
+- [x] Verified locally: 8 Ken Burns fallbacks render at the right durations; export, then a simulated Kaggle run with an OOM failure, resume and import all work; a real clip takes priority over its fallback
+
+**Remaining:**
+- [ ] **Confirm the APIs against the official docs** (reading them was blocked in this session; allow it next time):
+  - `kaggle/wan_shots.py`: check the diffusers class names and arguments on the first Kaggle run
+  - `kaggle/acestep_music.py`: `generate()` still raises `NotImplementedError`; wire it to the ACE-Step 1.5 API from https://github.com/ACE-Step/ACE-Step-1.5
+  - FLUX.2 klein multipart fields, so keyframes can be conditioned on the approved reference image
+- [ ] With real keys: `make pictures`, approve a reference, check faces and hands on every keyframe
+- [ ] `heritage gpu export shots`, run on Kaggle (480p drafts first), `heritage gpu import`
+- [ ] `heritage gpu export music`, run on Kaggle, listen under the narration, set `chosen_seed` and `choice_reason`
+- [ ] Write the real experiments in `EXPERIMENTS.md` and blockers in `FAILURES.md` as they happen
+- [ ] Merge the PR for `phase-2/pictures-and-music`
 - [ ] Checkpoint: a rough cut with a picture for every shot and the chosen score
 
 ### Phase 3: edit, release, explain (Thursday)
@@ -93,6 +109,10 @@ make smoke       # provider check
 make validate    # schema + consent
 make draft       # story.md -> storyboard.json
 make radio       # narration + radio cut
+make pictures    # reference, keyframes, shots (fallbacks until GPU clips arrive)
+uv run heritage approve-reference grandmother 12
+uv run heritage gpu export shots            # then follow kaggle/README.md
+uv run heritage gpu import ~/Downloads/out.zip
 make test        # unit tests
 uv run heritage run --dry-run              # what would regenerate
 uv run heritage run --stage narration --shot s03
