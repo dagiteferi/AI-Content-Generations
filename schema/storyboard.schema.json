@@ -42,6 +42,15 @@
           "default": null,
           "description": "Identifier of this person's consent record in ETHICS.md.",
           "title": "Consent Ref"
+        },
+        "reference_seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Reference Seeds",
+          "type": "array"
         }
       },
       "required": [
@@ -126,6 +135,14 @@
           ],
           "title": "Resolution",
           "type": "string"
+        },
+        "frames": {
+          "default": 121,
+          "description": "Wan frame count, 4k+1 (121 = 5 s at 24 fps).",
+          "maximum": 121,
+          "minimum": 17,
+          "title": "Frames",
+          "type": "integer"
         }
       },
       "required": [
@@ -138,6 +155,11 @@
     "Music": {
       "additionalProperties": false,
       "properties": {
+        "model": {
+          "default": "ace-step-1.5",
+          "title": "Model",
+          "type": "string"
+        },
         "cues": {
           "items": {
             "$ref": "#/$defs/MusicCue"
@@ -145,24 +167,26 @@
           "title": "Cues",
           "type": "array"
         },
-        "candidates": {
-          "default": 3,
-          "maximum": 8,
-          "minimum": 1,
-          "title": "Candidates",
-          "type": "integer"
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Seeds",
+          "type": "array"
         },
-        "chosen": {
+        "chosen_seed": {
           "anyOf": [
             {
-              "type": "string"
+              "type": "integer"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Chosen"
+          "title": "Chosen Seed"
         },
         "choice_reason": {
           "anyOf": [

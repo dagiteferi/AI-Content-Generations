@@ -51,13 +51,15 @@ heritage-short/
 ├── schema/
 │   └── storyboard.schema.json  # generated from pipeline/models.py
 ├── pipeline/
-│   ├── cli.py                  # typer: validate, schema, smoke, draft, run
+│   ├── cli.py                  # typer: validate, schema, smoke, draft, run, approve-reference, gpu
 │   ├── models.py               # Pydantic contract: Storyboard, Shot, Voice, MusicCue, Character
 │   ├── storyboard.py           # load/save, schema export, consent gate
 │   ├── config.py               # settings from env (pydantic-settings)
 │   ├── context.py              # StageContext: storyboard, settings, log, shot filter, flags
 │   ├── orchestrator.py         # runs stages in dependency order
 │   ├── smoke.py                # one call per provider, latency logged
+│   ├── prompts.py              # prompt composition: shot + characters + style block
+│   ├── gpu.py                  # Kaggle hand-off: export job bundles, import results
 │   ├── errors.py               # expected failures with actionable messages
 │   ├── core/
 │   │   ├── cache.py            # cache keys, file digests, atomic writes
@@ -68,13 +70,19 @@ heritage-short/
 │   │   ├── base.py             # Protocols: TextModel, SpeechModel, ImageModel
 │   │   ├── gemini.py           # text + TTS
 │   │   ├── cloudflare.py       # FLUX on Workers AI
-│   │   └── kaggle.py           # account check (GPU jobs in phase 2)
+│   │   ├── factory.py          # model id -> provider
+│   │   ├── kenburns.py         # FFmpeg zoompan fallback that follows the camera note
+│   │   └── kaggle.py           # account check
 │   └── stages/
 │       ├── script.py           # brief -> storyboard (Gemini, validated with repair loop)
 │       ├── narration.py        # Gemini TTS per shot
-│       └── radio.py            # narration + placeholder music on black (phase 1)
-│                               # phase 2-3: reference, keyframes, shots, music, assemble
-├── kaggle/                     # GPU notebooks/scripts for Wan 2.2 and ACE-Step
+│       ├── reference.py        # character reference candidates (one per seed)
+│       ├── keyframes.py        # FLUX still per shot
+│       ├── shots.py            # imported Wan clip, else Ken Burns fallback
+│       ├── music.py            # ACE-Step candidates + the storyboard's choice
+│       └── radio.py            # narration + placeholder music on black
+│                               # phase 3: assemble
+├── kaggle/                     # GPU side: runner.py (resumable job loop), wan_shots.py, acestep_music.py
 ├── references/                 # approved reference sheet / golden reference images
 ├── outputs/                    # generated media (large files git-ignored, manifests kept)
 │   ├── narration/ reference/ keyframes/ shots/ music/ radio_cut/ final/
@@ -208,7 +216,32 @@ One JSON object per model call (cache hits are logged too, with `cache: "hit"`):
 | Gemini text + TTS, FLUX | Hosted APIs (Gemini, Cloudflare) | Free tier, no GPU needed |
 | Wan 2.2, ACE-Step | Kaggle (2×T4), Colab as backup | Needs a GPU. Jobs are batched |
 
-The GPU hand-off is file-based. `heritage run --stage shots` writes a job manifest (`kaggle/jobs.json`: shot id, keyframe, prompt, seed, resolution, cache key). The Kaggle notebook processes it and saves clips named by cache key. Downloading them into `outputs/shots/` turns them into cache hits. The pipeline stays reproducible even though the GPU is remote and runs intermittently.
+### GPU hand-off
+
+The hand-off is file-based, so the pipeline stays reproducible even though the GPU is remote and only available some of the time:
+
+```
+heritage gpu export shots ──► kaggle/bundles/shots.zip  (jobs.json + keyframes + runner scripts)
+                                    │  upload as a Kaggle dataset
+                                    ▼
+                        wan_shots.py on T4 x2: one clip per job, saved immediately,
+                        finished jobs skipped on re-run, results.jsonl line per job
+                                    │  download out.zip
+                                    ▼
+heritage gpu import out.zip ──► outputs/shots/<shot>.<key>.mp4  + runs.jsonl (gpu_s)
+```
+
+- Each job's output name **is** its cache key, so an imported clip is a cache hit for exactly the storyboard that produced it.
+- Import rejects outputs the current storyboard no longer expects (reported as *stale*), so an edited prompt can never pick up an old clip.
+- Until a shot's clip arrives, the shots stage renders its fallback locally (`kenburns`, `still` or `none` per shot). The Ken Burns movement follows the shot's `camera` note (push-in, pull-back, pan, tilt), which keeps consecutive shots varied. A real clip always takes priority over the fallback.
+
+### Frame format
+
+Keyframes are square (FLUX.1 schnell's 1024x1024 default), and clips are square too: 640x640 for drafts, 960x960 for finals, which is about the pixel count of Wan's 1280x704. Prompts ask for a centred subject, so one clip can be cropped to both 9:16 and 16:9 in assembly. The cost is resolution: a 9:16 crop of a 960 square is 540x960, upscaled to 1080x1920.
+
+### Character consistency
+
+FLUX.1 schnell on Workers AI is text-to-image only, so consistency comes from the text. Every keyframe prompt gets the same character description and style block (`pipeline/prompts.py`), and the seeds are fixed. The approved reference (`references/<id>.jpg`) is the golden reference that keyframes are checked against. Conditioning on it directly with FLUX.2 klein's reference images is the planned next step.
 
 ## 9. Tech choices
 

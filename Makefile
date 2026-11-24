@@ -1,4 +1,4 @@
-.PHONY: install schema validate smoke draft narration radio film test
+.PHONY: install schema validate smoke draft narration radio pictures film test
 
 install:
 	uv sync
@@ -20,6 +20,9 @@ narration: validate
 
 radio: validate
 	uv run heritage run --stage narration --stage radio
+
+pictures: validate
+	uv run heritage run --stage reference --stage keyframes --stage shots
 
 film: install validate
 	uv run heritage run

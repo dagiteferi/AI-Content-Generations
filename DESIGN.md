@@ -97,4 +97,6 @@ Every shot needs a reason. The full prompts live in `storyboard.json`.
 | Date | Decision | Alternatives considered | Why |
 |---|---|---|---|
 | 2026-11-24 | CLI pipeline (Python + typer), no web framework | FastAPI service | The brief requires one command from a clean clone. A server adds setup without adding value to the film |
-| | | | |
+| 2026-11-24 | Square keyframes and clips, subject centred | Separate 9:16 and 16:9 generations | One generation serves both exports and halves the GPU time; the cost is resolution in the crops |
+| 2026-11-24 | File-based GPU hand-off (export zip → Kaggle → import) | Driving Kaggle through its API | Works with the free tier and a phone-verified account, and every GPU job still lands in runs.jsonl |
+| 2026-11-24 | Ken Burns fallback per shot until a clip arrives | Block the edit until all clips exist | There is always a complete rough cut, whatever the GPU quota |

@@ -11,6 +11,7 @@ MIN_FILM_S, MAX_FILM_S = 60.0, 90.0
 DEFAULT_TTS_MODEL = "gemini-3.8-flash-tts"
 DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"
 DEFAULT_VIDEO_MODEL = "wan2.2-ti2v-5b"
+DEFAULT_MUSIC_MODEL = "ace-step-1.5"
 
 ShotSize = Literal[
     "extreme-wide",
@@ -37,6 +38,7 @@ class Character(Contract):
         default=None,
         description="Identifier of this person's consent record in ETHICS.md.",
     )
+    reference_seeds: list[int] = Field(default_factory=lambda: [11, 12, 13, 14], min_length=1, max_length=8)
 
 
 class Voice(Contract):
@@ -56,10 +58,17 @@ class MusicCue(Contract):
 
 
 class Music(Contract):
+    model: str = DEFAULT_MUSIC_MODEL
     cues: list[MusicCue] = Field(default_factory=list)
-    candidates: int = Field(default=3, ge=1, le=8)
-    chosen: str | None = None
+    seeds: list[int] = Field(default_factory=lambda: [1001, 1002, 1003], min_length=1, max_length=8)
+    chosen_seed: int | None = None
     choice_reason: str | None = None
+
+    @model_validator(mode="after")
+    def check_choice(self) -> Music:
+        if self.chosen_seed is not None and self.chosen_seed not in self.seeds:
+            raise ValueError(f"music.chosen_seed {self.chosen_seed} is not one of music.seeds")
+        return self
 
 
 class Keyframe(Contract):
@@ -73,6 +82,13 @@ class Motion(Contract):
     seed: int = Field(ge=0)
     model: str = DEFAULT_VIDEO_MODEL
     resolution: Literal["480p", "720p"] = "480p"
+    frames: int = Field(default=121, ge=17, le=121, description="Wan frame count, 4k+1 (121 = 5 s at 24 fps).")
+
+    @model_validator(mode="after")
+    def check_frames(self) -> Motion:
+        if (self.frames - 1) % 4:
+            raise ValueError(f"motion.frames must be 4k+1, got {self.frames}")
+        return self
 
 
 class Narration(Contract):

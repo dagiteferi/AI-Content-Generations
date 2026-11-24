@@ -11,7 +11,13 @@
       "description": "a fictional Ethiopian grandmother in her seventies, white netela shawl, kind lined face, silver hair in a braid",
       "reference_image": null,
       "real_person": false,
-      "consent_ref": null
+      "consent_ref": null,
+      "reference_seeds": [
+        11,
+        12,
+        13,
+        14
+      ]
     }
   ],
   "voice": {
@@ -20,6 +26,7 @@
     "style": "calm, warm and unhurried, like telling a story to a grandchild"
   },
   "music": {
+    "model": "ace-step-1.5",
     "cues": [
       {
         "id": "main",
@@ -31,8 +38,12 @@
         "instrumental": true
       }
     ],
-    "candidates": 3,
-    "chosen": null,
+    "seeds": [
+      1001,
+      1002,
+      1003
+    ],
+    "chosen_seed": null,
     "choice_reason": null
   },
   "shots": [
@@ -43,9 +54,22 @@
       "shot_size": "extreme-wide",
       "camera": "slow push-in",
       "characters": [],
-      "keyframe": {"prompt": "a small highland village at dawn, round houses with smoke rising, eucalyptus trees, mist in the valley", "seed": 101, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "the camera pushes in slowly, mist drifts across the valley", "seed": 201, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "Every morning, before the sun cleared the hills, my grandmother lit the fire.", "subtitle": "Every morning, before the sun cleared the hills, my grandmother lit the fire."},
+      "keyframe": {
+        "prompt": "a small highland village at dawn, round houses with smoke rising, eucalyptus trees, mist in the valley",
+        "seed": 101,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "the camera pushes in slowly, mist drifts across the valley",
+        "seed": 201,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "Every morning, before the sun cleared the hills, my grandmother lit the fire.",
+        "subtitle": "Every morning, before the sun cleared the hills, my grandmother lit the fire."
+      },
       "fallback": "kenburns"
     },
     {
@@ -54,10 +78,25 @@
       "purpose": "Introduce the grandmother and her ritual",
       "shot_size": "medium",
       "camera": "locked-off",
-      "characters": ["grandmother"],
-      "keyframe": {"prompt": "an elderly woman in a white shawl kneeling by a small charcoal stove inside a round house, warm firelight", "seed": 102, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "she fans the coals gently, sparks rise, the camera stays still", "seed": 202, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "She never hurried. She said coffee knows when you are impatient.", "subtitle": "She never hurried. She said coffee knows when you are impatient."},
+      "characters": [
+        "grandmother"
+      ],
+      "keyframe": {
+        "prompt": "an elderly woman in a white shawl kneeling by a small charcoal stove inside a round house, warm firelight",
+        "seed": 102,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "she fans the coals gently, sparks rise, the camera stays still",
+        "seed": 202,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "She never hurried. She said coffee knows when you are impatient.",
+        "subtitle": "She never hurried. She said coffee knows when you are impatient."
+      },
       "fallback": "kenburns"
     },
     {
@@ -67,9 +106,22 @@
       "shot_size": "close-up",
       "camera": "slow tilt down",
       "characters": [],
-      "keyframe": {"prompt": "green coffee beans turning dark brown in a flat iron pan over glowing coals, thin smoke curling", "seed": 103, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "beans shift in the pan, smoke curls upward, slow tilt down", "seed": 203, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "The beans turned from green to gold to brown, and the whole house filled with smoke.", "subtitle": "The beans turned from green to gold to brown, and the whole house filled with smoke."},
+      "keyframe": {
+        "prompt": "green coffee beans turning dark brown in a flat iron pan over glowing coals, thin smoke curling",
+        "seed": 103,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "beans shift in the pan, smoke curls upward, slow tilt down",
+        "seed": 203,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "The beans turned from green to gold to brown, and the whole house filled with smoke.",
+        "subtitle": "The beans turned from green to gold to brown, and the whole house filled with smoke."
+      },
       "fallback": "kenburns"
     },
     {
@@ -79,9 +131,22 @@
       "shot_size": "wide",
       "camera": "slow pan right",
       "characters": [],
-      "keyframe": {"prompt": "neighbours arriving at a doorway in morning light, fresh grass scattered on the floor, low wooden stools", "seed": 104, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "people step through the doorway, the camera pans slowly right", "seed": 204, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "The smell was an invitation. One by one, the neighbours came in.", "subtitle": "The smell was an invitation. One by one, the neighbours came in."},
+      "keyframe": {
+        "prompt": "neighbours arriving at a doorway in morning light, fresh grass scattered on the floor, low wooden stools",
+        "seed": 104,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "people step through the doorway, the camera pans slowly right",
+        "seed": 204,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "The smell was an invitation. One by one, the neighbours came in.",
+        "subtitle": "The smell was an invitation. One by one, the neighbours came in."
+      },
       "fallback": "kenburns"
     },
     {
@@ -91,9 +156,22 @@
       "shot_size": "insert",
       "camera": "locked-off",
       "characters": [],
-      "keyframe": {"prompt": "a black clay coffee pot pouring a thin stream of coffee into small white cups on a wooden tray", "seed": 105, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "a thin stream of coffee pours into the cups, steam rises, camera fixed", "seed": 205, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "She poured from high above the cups, and never spilled a single drop.", "subtitle": "She poured from high above the cups, and never spilled a single drop."},
+      "keyframe": {
+        "prompt": "a black clay coffee pot pouring a thin stream of coffee into small white cups on a wooden tray",
+        "seed": 105,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "a thin stream of coffee pours into the cups, steam rises, camera fixed",
+        "seed": 205,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "She poured from high above the cups, and never spilled a single drop.",
+        "subtitle": "She poured from high above the cups, and never spilled a single drop."
+      },
       "fallback": "kenburns"
     },
     {
@@ -102,10 +180,25 @@
       "purpose": "Emotional centre: what the ritual really meant",
       "shot_size": "close-up",
       "camera": "slow push-in",
-      "characters": ["grandmother"],
-      "keyframe": {"prompt": "close portrait of an elderly woman smiling softly, eyes half closed, warm firelight on her face", "seed": 106, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "she smiles slowly, the camera pushes in gently", "seed": 206, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "Three cups, she told me. The first for talk, the second for thought, the third for blessing.", "subtitle": "Three cups, she told me. The first for talk, the second for thought, the third for blessing."},
+      "characters": [
+        "grandmother"
+      ],
+      "keyframe": {
+        "prompt": "close portrait of an elderly woman smiling softly, eyes half closed, warm firelight on her face",
+        "seed": 106,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "she smiles slowly, the camera pushes in gently",
+        "seed": 206,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "Three cups, she told me. The first for talk, the second for thought, the third for blessing.",
+        "subtitle": "Three cups, she told me. The first for talk, the second for thought, the third for blessing."
+      },
       "fallback": "kenburns"
     },
     {
@@ -115,9 +208,22 @@
       "shot_size": "medium-close-up",
       "camera": "slow orbit",
       "characters": [],
-      "keyframe": {"prompt": "the same black clay coffee pot standing alone on a modern apartment table by a window, city lights outside", "seed": 107, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "the camera orbits slowly around the pot, city lights flicker", "seed": 207, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "Now the pot lives with me, far from the hills.", "subtitle": "Now the pot lives with me, far from the hills."},
+      "keyframe": {
+        "prompt": "the same black clay coffee pot standing alone on a modern apartment table by a window, city lights outside",
+        "seed": 107,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "the camera orbits slowly around the pot, city lights flicker",
+        "seed": 207,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "Now the pot lives with me, far from the hills.",
+        "subtitle": "Now the pot lives with me, far from the hills."
+      },
       "fallback": "kenburns"
     },
     {
@@ -127,9 +233,22 @@
       "shot_size": "medium",
       "camera": "slow pull-back",
       "characters": [],
-      "keyframe": {"prompt": "young hands roasting coffee beans in a flat pan on a small stove in a modern kitchen, morning light", "seed": 108, "model": "@cf/black-forest-labs/flux-1-schnell"},
-      "motion": {"prompt": "the hands stir the beans, smoke rises, the camera pulls back slowly", "seed": 208, "model": "wan2.2-ti2v-5b", "resolution": "480p"},
-      "narration": {"text": "But every Sunday, I light the fire. And I do not hurry.", "subtitle": "But every Sunday, I light the fire. And I do not hurry."},
+      "keyframe": {
+        "prompt": "young hands roasting coffee beans in a flat pan on a small stove in a modern kitchen, morning light",
+        "seed": 108,
+        "model": "@cf/black-forest-labs/flux-1-schnell"
+      },
+      "motion": {
+        "prompt": "the hands stir the beans, smoke rises, the camera pulls back slowly",
+        "seed": 208,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "But every Sunday, I light the fire. And I do not hurry.",
+        "subtitle": "But every Sunday, I light the fire. And I do not hurry."
+      },
       "fallback": "kenburns"
     }
   ],
