@@ -42,3 +42,17 @@ def test_network_errors_from_other_httpx_copies_are_transient():
 
     assert is_transient(ReadTimeout("timed out"))
     assert not is_transient(ValueError("bad input"))
+
+
+def test_deadline_stops_a_stuck_call():
+    import time
+
+    import pytest
+
+    from pipeline.core.retry import is_transient
+    from pipeline.providers.gemini import with_deadline
+
+    with pytest.raises(TimeoutError) as caught:
+        with_deadline(lambda: time.sleep(5), seconds=0.2)
+    assert is_transient(caught.value)
+    assert with_deadline(lambda: 42, seconds=1) == 42

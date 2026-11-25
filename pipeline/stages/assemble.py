@@ -28,6 +28,7 @@ from pipeline.stages.radio import (
     Cue,
     Slot,
     placeholder_music,
+    voice_graph,
     plan_timeline,
     subtitle_cues,
     to_srt,
@@ -104,7 +105,7 @@ def music_graph(tracks: list[Path] | None, placements: list[tuple[float, float]]
 
 
 def premix_command(
-    narration_files: list[Path],
+    narration_files: list[Path | None],
     slots: list[Slot],
     end_card_s: float,
     tracks: list[Path] | None,
@@ -112,22 +113,14 @@ def premix_command(
     output: Path,
 ) -> list[str]:
     total_s = slots[-1].end_s + end_card_s
-    padded = [
-        f"[{i}:a]aresample={SAMPLE_RATE},aformat=sample_fmts=fltp:channel_layouts=mono,"
-        f"apad=whole_dur={slot.length_s:.3f}[n{i}]"
-        for i, slot in enumerate(slots)
-    ]
-    voice_labels = "".join(f"[n{i}]" for i in range(len(slots))) + "[tail]"
+    inputs, voice = voice_graph(narration_files, slots, end_card_s)
     graph = [
-        *padded,
-        f"anullsrc=r={SAMPLE_RATE}:cl=mono,atrim=duration={end_card_s:.3f}[tail]",
-        f"{voice_labels}concat=n={len(slots) + 1}:v=0:a=1,"
-        f"loudnorm=I={VOICE_LUFS}:TP=-2,aresample={SAMPLE_RATE},asplit=2[voice][sidechain]",
-        music_graph(tracks, placements, total_s, first_input=len(narration_files)),
+        *voice,
+        f"[voicecat]loudnorm=I={VOICE_LUFS}:TP=-2,aresample={SAMPLE_RATE},asplit=2[voice][sidechain]",
+        music_graph(tracks, placements, total_s, first_input=len(inputs) // 2),
         f"[music][sidechain]sidechaincompress={DUCKING}[ducked]",
         "[voice][ducked]amix=inputs=2:duration=first:normalize=0[mix]",
     ]
-    inputs = [arg for path in narration_files for arg in ("-i", str(path))]
     inputs += [arg for path in tracks or [] for arg in ("-i", str(path))]
     return [*inputs, "-filter_complex", ";".join(graph), "-map", "[mix]", "-c:a", "pcm_s16le", str(output)]
 
@@ -254,13 +247,13 @@ def _manifest_key(path: Path) -> str | None:
     return json.loads(path.read_text(encoding="utf-8")).get("key")
 
 
-def _collect_inputs(ctx: StageContext) -> tuple[dict[str, Path], dict[str, Path], list[Path] | None]:
+def _collect_inputs(ctx: StageContext) -> tuple[dict[str, Path | None], dict[str, Path], list[Path] | None]:
     storyboard = ctx.storyboard
     outputs_dir = ctx.settings.outputs_dir
     narration = {s.id: narration_path(outputs_dir, s, storyboard.voice) for s in storyboard.shots}
     clips = {s.id: shots.resolve_clip(outputs_dir, s, storyboard) for s in storyboard.shots}
 
-    missing_voice = [k for k, p in narration.items() if not p.exists()]
+    missing_voice = [k for k, p in narration.items() if p is not None and not p.exists()]
     missing_clip = [k for k, p in clips.items() if p is None]
     problems = []
     if missing_voice:
@@ -290,7 +283,7 @@ def run(ctx: StageContext) -> None:
 
     out_dir = ctx.stage_dir(STAGE)
     end_card = storyboard.end_card
-    voice_digests = [file_digest(p) for p in narration.values()]
+    voice_digests = [file_digest(p) if p else "silent" for p in narration.values()]
     mix_key = cache_key(
         {
             "stage": f"{STAGE}-mix",
@@ -309,7 +302,7 @@ def run(ctx: StageContext) -> None:
                 "stage": f"{STAGE}-{ratio.name}",
                 "mix": mix_key,
                 "clips": [clips[s.id].name for s in storyboard.shots],
-                "subtitles": [s.narration.subtitle for s in storyboard.shots],
+                "subtitles": [s.narration.subtitle if s.narration else "" for s in storyboard.shots],
                 "end_card": end_card.text,
                 "ratio": [ratio.width, ratio.height, ratio.font_size, ratio.margin_v],
                 "edit": [CLIP_HEAD_TRIM_S, MAX_STRETCH, SHOT_FADE_S],
@@ -338,7 +331,7 @@ def run(ctx: StageContext) -> None:
         return
 
     require_ffmpeg()
-    narration_s = {k: audio_duration_s(p) for k, p in narration.items()}
+    narration_s = {k: audio_duration_s(p) for k, p in narration.items() if p is not None}
     slots = plan_timeline(storyboard, narration_s)
     total_s = slots[-1].end_s + end_card.duration_s
 
@@ -378,7 +371,7 @@ def run(ctx: StageContext) -> None:
         ctx.status(ratio.name, "generated", output, f"{total_s:.1f}s")
 
 
-def _render_mix(ctx: StageContext, narration: list[Path], slots: list[Slot], tracks: list[Path] | None, mix: Path) -> None:
+def _render_mix(ctx: StageContext, narration: list[Path | None], slots: list[Slot], tracks: list[Path] | None, mix: Path) -> None:
     storyboard = ctx.storyboard
     premix = mix.with_name(f".premix.{mix.name}")
     placements = place_cues(storyboard, slots)

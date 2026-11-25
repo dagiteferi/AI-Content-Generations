@@ -64,3 +64,14 @@ Target: about 10 entries. Change one thing at a time and keep the seed fixed. Ev
   - C: young adults on 2 of 3 seeds; seed 1038 had both characters right.
 - **Decision:** Use C with seed 1038. The relationship word ("son") pulled the model toward a child harder than the stated age did; describe what the viewer sees, not who the person is. The same fix worked for s02, and "still life, no people" fixed s04 and s09, where strangers had appeared at the table.
 
+### E06: Show, don't tell
+- **Date:** 2026-11-25
+- **Hypothesis:** The first cut narrated what the picture already showed ("the pencil grew shorter"). Fewer, quieter lines and silent shots will feel more artistic and let the images carry the story.
+- **Change:**
+  - Narration made optional per shot in the contract (`narration: null` gives a silent shot with no subtitle).
+  - Narration cut from 9 lines (82 words) to 5 short lines (about 30 words). s01, s04, s06 and s07 are silent; the pencil, the lamp and the walk to the exam tell their part alone.
+  - Silent shots shortened (s01 6 s, s04 5 s, s06 6 s, s07 7 s): 76.5 s → 71.5 s.
+- **Fixed:** keyframes, voice, music cue.
+- **Result:** _fill in after the radio cut and user test 1_
+- **Decision:** _pending_
+

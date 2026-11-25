@@ -12,7 +12,9 @@ from pipeline.providers.gemini import GeminiSpeech
 STAGE = "narration"
 
 
-def narration_path(outputs_dir: Path, shot: Shot, voice: Voice) -> Path:
+def narration_path(outputs_dir: Path, shot: Shot, voice: Voice) -> Path | None:
+    if shot.narration is None:
+        return None  # a silent shot
     key = cache_key(
         {
             "stage": STAGE,
@@ -31,6 +33,9 @@ def run(ctx: StageContext) -> None:
 
     for shot in ctx.selected_shots():
         path = narration_path(ctx.settings.outputs_dir, shot, voice)
+        if path is None:
+            ctx.status(shot.id, "skipped", note="silent shot")
+            continue
         call = Call(
             stage=STAGE,
             provider="gemini",

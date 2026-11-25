@@ -3,7 +3,7 @@
   "title": "የመጨረሻው ምዕራፍ (The Final Chapter)",
   "language": "am",
   "subtitle_language": "en",
-  "target_duration_s": 76.5,
+  "target_duration_s": 71.5,
   "style_block": "Cinematic realistic digital painting set in Addis Ababa, Ethiopia, warm amber lamp light at night, soft golden morning light, muted earth tones, gentle film grain, natural faces and hands",
   "characters": [
     {
@@ -62,7 +62,7 @@
   "shots": [
     {
       "id": "s01",
-      "duration_s": 8.0,
+      "duration_s": 6.0,
       "purpose": "Establish the quiet atmosphere of the home at night where the journey begins.",
       "shot_size": "wide",
       "camera": "Slow forward pan",
@@ -79,10 +79,7 @@
         "resolution": "480p",
         "frames": 121
       },
-      "narration": {
-        "text": "ጸጥ ባለው ሌሊት፣ ከአንድ ትንሽ ቤት መስኮት ሞቅ ያለ ብርሃን ይወጣል።",
-        "subtitle": "On a quiet night, warm light shines from the window of a small house."
-      },
+      "narration": null,
       "fallback": "kenburns"
     },
     {
@@ -108,8 +105,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "አባቴ በበሩ ቆሞ እንዲህ አለኝ፤ ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።",
-        "subtitle": "My father stood in the doorway and said: an exam knows no jokes, and the result knows no forgiveness."
+        "text": "አባቴ እንዲህ አለኝ፦ ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።",
+        "subtitle": "My father told me: an exam knows no jokes, and the result knows no forgiveness."
       },
       "fallback": "kenburns"
     },
@@ -135,14 +132,14 @@
         "frames": 121
       },
       "narration": {
-        "text": "በፊት ከጓደኞቼ ጋር እየሳቅሁ መጽሐፌን ዘግቼ እተወው ነበር።",
-        "subtitle": "Before, I used to laugh with friends and leave my book closed."
+        "text": "ያኔ አልገባኝም ነበር።",
+        "subtitle": "Back then, I did not understand."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s04",
-      "duration_s": 6.0,
+      "duration_s": 5.0,
       "purpose": "Highlight the unused tools and initial procrastination.",
       "shot_size": "close-up",
       "camera": "Slow push in",
@@ -159,10 +156,7 @@
         "resolution": "480p",
         "frames": 121
       },
-      "narration": {
-        "text": "አዲሱ እርሳስ አልተቀረጸም፤ ጊዜው ግን እየሄደ ነበር።",
-        "subtitle": "The new pencil remained untouched, but time was slipping away."
-      },
+      "narration": null,
       "fallback": "kenburns"
     },
     {
@@ -187,14 +181,14 @@
         "frames": 121
       },
       "narration": {
-        "text": "የአባቴ ቃላት በጆሮዬ ሲያቃጭሉ፣ የጠረጴዛውን መብራት አብርቼ በየሌሊቱ ማጥናት ጀመርኩ።",
-        "subtitle": "With my father's words ringing in my ears, I lit the lamp and began studying every night."
+        "text": "ቃሉ ግን አልለቀቀኝም።",
+        "subtitle": "But his words never let me go."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s06",
-      "duration_s": 7.0,
+      "duration_s": 6.0,
       "purpose": "Symbolize the dedication and passage of time through the worn pencil.",
       "shot_size": "close-up",
       "camera": "Slow downward pan",
@@ -211,15 +205,12 @@
         "resolution": "480p",
         "frames": 121
       },
-      "narration": {
-        "text": "ሌሊቶች አለፉ፤ እርሳሱ እያጠረ፣ ደብተሩም እየሞላ ሄደ።",
-        "subtitle": "Nights passed; the pencil grew shorter, and the notebook filled up."
-      },
+      "narration": null,
       "fallback": "kenburns"
     },
     {
       "id": "s07",
-      "duration_s": 8.0,
+      "duration_s": 7.0,
       "purpose": "Show confidence and calm preparedness on exam morning.",
       "shot_size": "wide",
       "camera": "Slow tracking shot",
@@ -238,10 +229,7 @@
         "resolution": "480p",
         "frames": 121
       },
-      "narration": {
-        "text": "በማለዳ ጸሐይ፣ ተረጋግቼና ተዘጋጅቼ ወደ ፈተናው አዳራሽ አመራሁ።",
-        "subtitle": "In the morning sun, calm and ready, I walked toward the exam hall."
-      },
+      "narration": null,
       "fallback": "kenburns"
     },
     {
@@ -267,8 +255,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "የውጤት ቀን አባቴ ፈገግ ብሎ አቀፈኝ፤ የመጨረሻው ምዕራፍ ቀልድ አይወድም አለኝ።",
-        "subtitle": "On results day, my father smiled and hugged me; he said: the final chapter does not like jokes."
+        "text": "ያን ቀን አባቴ ፈገግ ብሎ አለኝ፦ የመጨረሻው ምዕራፍ ቀልድ አይወድም።",
+        "subtitle": "That day my father smiled and said: the final chapter does not like jokes."
       },
       "fallback": "kenburns"
     },
@@ -292,8 +280,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "የ12ኛ ክፍልም ሆነ የመውጫ ፈተና፣ ጊዜው አልረፈደም። የእናንተ የመጨረሻ ምዕራፍ ዛሬ ማታ ይጀምራል።",
-        "subtitle": "Grade 12 or exit exam, it is not too late. Your final chapter starts tonight."
+        "text": "የእናንተ ምዕራፍ ዛሬ ማታ ይጀምራል።",
+        "subtitle": "Your chapter begins tonight."
       },
       "fallback": "kenburns"
     }

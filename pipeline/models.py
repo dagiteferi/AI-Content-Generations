@@ -105,7 +105,7 @@ class Shot(Contract):
     characters: list[str] = Field(default_factory=list)
     keyframe: Keyframe
     motion: Motion
-    narration: Narration
+    narration: Narration | None = Field(default=None, description="Omit for a silent shot that shows instead of tells.")
     fallback: Fallback = "kenburns"
 
 

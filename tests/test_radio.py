@@ -37,6 +37,9 @@ def test_cues_stay_inside_spoken_time(storyboard_data):
     cues = subtitle_cues(slots)
     for slot in slots:
         mine = [c for c in cues if slot.start_s <= c.start_s < slot.end_s]
+        if not slot.subtitle:
+            assert mine == []
+            continue
         assert mine[-1].end_s <= slot.start_s + slot.narration_s + 1e-9
 
 

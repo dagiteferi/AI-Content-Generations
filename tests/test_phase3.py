@@ -132,3 +132,20 @@ def test_costs_are_written_between_markers(tmp_path):
     write_into(doc, "| new |")
     text = doc.read_text()
     assert "| new |" in text and "old" not in text and text.endswith("outro\n")
+
+
+def test_silent_shots_get_silence_and_no_subtitle(storyboard_data):
+    from pipeline.stages.radio import voice_graph
+
+    storyboard_data["shots"][0]["narration"] = None
+    storyboard = Storyboard.model_validate(storyboard_data)
+    spoken = {s.id: 3.0 for s in storyboard.shots if s.narration}
+    slots = plan_timeline(storyboard, spoken)
+
+    assert slots[0].length_s == storyboard.shots[0].duration_s
+    assert all(cue.start_s >= slots[0].end_s for cue in __import__("pipeline.stages.radio", fromlist=["x"]).subtitle_cues(slots))
+
+    files = [None if s.narration is None else Path(f"{s.id}.wav") for s in storyboard.shots]
+    inputs, parts = voice_graph(files, slots, 3.0)
+    assert inputs.count("-i") == sum(1 for s in storyboard.shots if s.narration)
+    assert parts[0].startswith("anullsrc") and parts[1].startswith("[0:a]")

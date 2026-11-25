@@ -67,3 +67,16 @@ Real blockers (quota, memory, consistency, language…), what was tried, and wha
 - **What I tried:** Kept the prompt and tried other seeds; those passed, but the son still came out as a child.
 - **What fixed it / workaround:** Changed the pose from a close embrace to standing side by side, the father's hand on his shoulder. No further flags, and the pose shows their heights better. Lesson: the filter judges the image, not only the prompt, so an innocent prompt can fail on one seed.
 - **Evidence:** test run outside the stage; error id `8e136160-9263-44e7-8949-35f778db95b5`
+
+### F08: TTS hung even with a timeout
+- **Date / stage / provider:** 2026-11-25 / narration / Gemini TTS
+- **What broke:** After F06's 90 s timeout, s05 still hung for over 6 minutes with nothing logged.
+- **What I tried:**
+  - A 2 s timeout on a test call did fire (`APITimeoutError`), so the timeout works per read: a reply that trickles in slowly never trips it.
+  - `APITimeoutError` comes from the SDK's separate interactions client and was not on the retry list.
+  - Rewording s05 did not help, and a line that had worked 10 minutes earlier also hung, so the service itself was overloaded.
+  - `gemini-3.1-flash-tts-preview` as a fallback rejects the style instruction (`Speech metadata is not supported for this model`).
+- **What fixed it / workaround:**
+  - A hard 120 s deadline around each TTS call, plus `TimeoutError` and `APIConnectionError` on the retry list. The run now fails cleanly after 3 logged attempts instead of hanging forever.
+  - Waited and re-ran later: spoken lines already made stay cached.
+- **Evidence:** `runs.jsonl`, stage `narration`, shot s05: three `TimeoutError` attempts of 120 s each

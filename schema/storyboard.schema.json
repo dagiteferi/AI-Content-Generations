@@ -340,7 +340,16 @@
           "$ref": "#/$defs/Motion"
         },
         "narration": {
-          "$ref": "#/$defs/Narration"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Narration"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Omit for a silent shot that shows instead of tells."
         },
         "fallback": {
           "default": "kenburns",
@@ -360,8 +369,7 @@
         "shot_size",
         "camera",
         "keyframe",
-        "motion",
-        "narration"
+        "motion"
       ],
       "title": "Shot",
       "type": "object"
