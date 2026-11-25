@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "title": "SAMPLE: The Coffee Pot (replace with your story)",
-  "language": "en",
+  "title": "የመጨረሻው ምዕራፍ (The Final Chapter)",
+  "language": "am",
   "subtitle_language": "en",
-  "target_duration_s": 70,
-  "style_block": "warm hand-painted illustration, soft golden-hour light, muted earth palette, gentle film grain",
+  "target_duration_s": 74.0,
+  "style_block": "Cinematic realistic digital painting, warm amber lamp light at night, soft golden morning light, muted earth tones, Ethiopian home and school, gentle film grain, natural faces and hands",
   "characters": [
     {
-      "id": "grandmother",
-      "description": "a fictional Ethiopian grandmother in her seventies, white netela shawl, kind lined face, silver hair in a braid",
+      "id": "student_boy",
+      "description": "An 18-year-old Ethiopian young man with short black hair, warm dark eyes, wearing a simple button-up shirt",
       "reference_image": null,
       "real_person": false,
       "consent_ref": null,
@@ -18,242 +18,288 @@
         13,
         14
       ]
+    },
+    {
+      "id": "father_man",
+      "description": "A 50-year-old Ethiopian man with gentle eyes and graying hair, draped in a traditional white woven cotton gabi",
+      "reference_image": null,
+      "real_person": false,
+      "consent_ref": null,
+      "reference_seeds": [
+        21,
+        22,
+        23,
+        24
+      ]
     }
   ],
   "voice": {
     "model": "gemini-3.8-flash-tts",
     "voice_name": "Sulafat",
-    "style": "calm, warm and unhurried, like telling a story to a grandchild"
+    "style": "calm, warm and serious, like a father speaking softly at night"
   },
   "music": {
     "model": "ace-step-1.5",
     "cues": [
       {
-        "id": "main",
-        "start_s": 0,
-        "end_s": 69,
-        "caption": "gentle krar and soft strings, warm and nostalgic, sparse texture, no lead melody",
-        "bpm": 70,
-        "key": "D minor",
+        "id": "cue_main",
+        "start_s": 0.0,
+        "end_s": 71.0,
+        "caption": "Gentle acoustic krar and soft ambient pads building from contemplative to hopeful tone",
+        "bpm": 65,
+        "key": "A minor",
         "instrumental": true
       }
     ],
     "seeds": [
-      1001,
-      1002,
-      1003
+      101,
+      102,
+      103
     ],
-    "chosen_seed": null,
-    "choice_reason": null
+    "chosen_seed": 101,
+    "choice_reason": "Reflective and warm traditional acoustic string melody creating emotional depth."
   },
   "shots": [
     {
       "id": "s01",
-      "duration_s": 8,
-      "purpose": "Establish the village at dawn so the viewer knows where we are",
-      "shot_size": "extreme-wide",
-      "camera": "slow push-in",
+      "duration_s": 7.0,
+      "purpose": "Establish the quiet atmosphere of the home at night where the journey begins.",
+      "shot_size": "wide",
+      "camera": "Slow forward pan",
       "characters": [],
       "keyframe": {
-        "prompt": "a small highland village at dawn, round houses with smoke rising, eucalyptus trees, mist in the valley",
-        "seed": 101,
+        "prompt": "Night view of a small modest Ethiopian stone home in a quiet neighborhood, one small window lit with warm amber light from inside, peaceful dark blue night sky, centred composition",
+        "seed": 1001,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "the camera pushes in slowly, mist drifts across the valley",
-        "seed": 201,
+        "prompt": "Slow forward zoom toward the glowing warm window of the house at night.",
+        "seed": 2001,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "Every morning, before the sun cleared the hills, my grandmother lit the fire.",
-        "subtitle": "Every morning, before the sun cleared the hills, my grandmother lit the fire."
+        "text": "በጸጥታ በዋጠው ሌሊት፣ ከአንድ ትንሽ ቤት መስኮት ሞቅ ያለ ብርሃን ይወጣል።",
+        "subtitle": "In the quiet night, warm light shines from the window of a small house."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s02",
-      "duration_s": 8,
-      "purpose": "Introduce the grandmother and her ritual",
+      "duration_s": 9.0,
+      "purpose": "Introduce the father delivering the pivotal warning to his child.",
       "shot_size": "medium",
-      "camera": "locked-off",
+      "camera": "Slow tilt up",
       "characters": [
-        "grandmother"
+        "father_man",
+        "student_boy"
       ],
       "keyframe": {
-        "prompt": "an elderly woman in a white shawl kneeling by a small charcoal stove inside a round house, warm firelight",
-        "seed": 102,
+        "prompt": "Interior of a simple wooden bedroom at night, a middle-aged Ethiopian father in a traditional white gabi standing softly framed in the doorway looking at a young Ethiopian student seated at a wooden desk, amber lamp light, centred composition",
+        "seed": 1002,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "she fans the coals gently, sparks rise, the camera stays still",
-        "seed": 202,
+        "prompt": "Slow tilt up from the study table to the man standing in the doorway speaking gently.",
+        "seed": 2002,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "She never hurried. She said coffee knows when you are impatient.",
-        "subtitle": "She never hurried. She said coffee knows when you are impatient."
+        "text": "አባቴ በበሩ ቆሞ እንዲህ አለኝ፤ ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።",
+        "subtitle": "My father stood in the doorway and said: an exam knows no jokes, and the result knows no forgiveness."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s03",
-      "duration_s": 9,
-      "purpose": "Show the craft: roasting the beans is the heart of the ceremony",
-      "shot_size": "close-up",
-      "camera": "slow tilt down",
-      "characters": [],
+      "duration_s": 8.0,
+      "purpose": "Show the past wasted opportunity and casual attitude toward studying.",
+      "shot_size": "medium",
+      "camera": "Slow right pan",
+      "characters": [
+        "student_boy"
+      ],
       "keyframe": {
-        "prompt": "green coffee beans turning dark brown in a flat iron pan over glowing coals, thin smoke curling",
-        "seed": 103,
+        "prompt": "Memory scene with warm soft lighting, a young Ethiopian student sitting outdoors on a wooden bench laughing with friends, a closed thick textbook sitting neglected beside him, soft golden backlight, centred composition",
+        "seed": 1003,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "beans shift in the pan, smoke curls upward, slow tilt down",
-        "seed": 203,
+        "prompt": "Gentle pan across the seated figures in warm outdoor light.",
+        "seed": 2003,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "The beans turned from green to gold to brown, and the whole house filled with smoke.",
-        "subtitle": "The beans turned from green to gold to brown, and the whole house filled with smoke."
+        "text": "በፊት ከጓደኞቼ ጋር እየሳቅሁ መጽሐፌን ዘግቼ እተወው ነበር።",
+        "subtitle": "Before, I used to laugh with friends and leave my book closed."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s04",
-      "duration_s": 8,
-      "purpose": "Bring the neighbours in: the ceremony is about community",
-      "shot_size": "wide",
-      "camera": "slow pan right",
+      "duration_s": 6.0,
+      "purpose": "Highlight the unused tools and initial procrastination.",
+      "shot_size": "close-up",
+      "camera": "Slow push in",
       "characters": [],
       "keyframe": {
-        "prompt": "neighbours arriving at a doorway in morning light, fresh grass scattered on the floor, low wooden stools",
-        "seed": 104,
+        "prompt": "Extreme close-up of a small wooden study desk under amber oil lamp light, featuring a closed thick book and a long, untouched wooden pencil beside it, centred composition",
+        "seed": 1004,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "people step through the doorway, the camera pans slowly right",
-        "seed": 204,
+        "prompt": "Slow camera push-in toward the wooden table under amber glow.",
+        "seed": 2004,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "The smell was an invitation. One by one, the neighbours came in.",
-        "subtitle": "The smell was an invitation. One by one, the neighbours came in."
+        "text": "አዲሱ እርሳስ አልተቀረጸም፤ ጊዜው ግን እየሄደ ነበር።",
+        "subtitle": "The new pencil remained untouched, but time was slipping away."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s05",
-      "duration_s": 8,
-      "purpose": "The pour: the motif of the clay pot",
-      "shot_size": "insert",
-      "camera": "locked-off",
-      "characters": [],
+      "duration_s": 9.0,
+      "purpose": "Show the turn towards serious late-night preparation.",
+      "shot_size": "medium-close-up",
+      "camera": "Slow push in",
+      "characters": [
+        "student_boy"
+      ],
       "keyframe": {
-        "prompt": "a black clay coffee pot pouring a thin stream of coffee into small white cups on a wooden tray",
-        "seed": 105,
+        "prompt": "Medium shot of a young Ethiopian male student leaning over a wooden study desk at night, reading attentively under the warm glow of a desk lamp, serious focused expression, centred composition",
+        "seed": 1005,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "a thin stream of coffee pours into the cups, steam rises, camera fixed",
-        "seed": 205,
+        "prompt": "Slow push-in on the seated person turning a book page under warm light.",
+        "seed": 2005,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "She poured from high above the cups, and never spilled a single drop.",
-        "subtitle": "She poured from high above the cups, and never spilled a single drop."
+        "text": "የአባቴ ቃላት ሲያስተጋቡ፣ የጠረጴዛውን መብራት አብሬ ማናት ጀመርኩ።",
+        "subtitle": "As my father's words echoed, I turned on the lamp and began studying every night."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s06",
-      "duration_s": 9,
-      "purpose": "Emotional centre: what the ritual really meant",
+      "duration_s": 7.0,
+      "purpose": "Symbolize the dedication and passage of time through the worn pencil.",
       "shot_size": "close-up",
-      "camera": "slow push-in",
-      "characters": [
-        "grandmother"
-      ],
+      "camera": "Slow downward pan",
+      "characters": [],
       "keyframe": {
-        "prompt": "close portrait of an elderly woman smiling softly, eyes half closed, warm firelight on her face",
-        "seed": 106,
+        "prompt": "Close-up of a wooden desk surface at night, featuring a short, heavily worn pencil stub lying next to filled open notebook pages under warm lamp light, centred composition",
+        "seed": 1006,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "she smiles slowly, the camera pushes in gently",
-        "seed": 206,
+        "prompt": "Slow downward camera pan focusing on the table surface and short pencil.",
+        "seed": 2006,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "Three cups, she told me. The first for talk, the second for thought, the third for blessing.",
-        "subtitle": "Three cups, she told me. The first for talk, the second for thought, the third for blessing."
+        "text": "ሌሊቶች አለፉ፤ እርሳሱ እያጠረ፣ ደብተሩም እየሞላ ሄደ።",
+        "subtitle": "Nights passed; the pencil grew shorter, and the notebook filled up."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s07",
-      "duration_s": 8,
-      "purpose": "Time passes: the pot is now on a different, modern table",
-      "shot_size": "medium-close-up",
-      "camera": "slow orbit",
-      "characters": [],
+      "duration_s": 8.0,
+      "purpose": "Show confidence and calm preparedness on exam morning.",
+      "shot_size": "wide",
+      "camera": "Slow tracking shot",
+      "characters": [
+        "student_boy"
+      ],
       "keyframe": {
-        "prompt": "the same black clay coffee pot standing alone on a modern apartment table by a window, city lights outside",
-        "seed": 107,
+        "prompt": "Wide outdoor morning scene, a young Ethiopian student walking calmly toward a large brick school hall, soft golden morning sunlight, out-of-focus background figures, centred composition",
+        "seed": 1007,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "the camera orbits slowly around the pot, city lights flicker",
-        "seed": 207,
+        "prompt": "Slow camera tracking shot following the walking figure toward the distant building.",
+        "seed": 2007,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "Now the pot lives with me, far from the hills.",
-        "subtitle": "Now the pot lives with me, far from the hills."
+        "text": "በማለዳው ጸሐይ፣ በራስ መተማመን ተሰምቶኝ ወደ ፈተናው አዳራሽ አመራሁ።",
+        "subtitle": "In the morning sun, feeling calm and ready, I walked toward the exam hall."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s08",
-      "duration_s": 8,
-      "purpose": "Close the circle: the ritual continues in the next generation",
+      "duration_s": 9.0,
+      "purpose": "Deliver the climax of success and the father's second proverb.",
       "shot_size": "medium",
-      "camera": "slow pull-back",
-      "characters": [],
+      "camera": "Slow push in",
+      "characters": [
+        "father_man",
+        "student_boy"
+      ],
       "keyframe": {
-        "prompt": "young hands roasting coffee beans in a flat pan on a small stove in a modern kitchen, morning light",
-        "seed": 108,
+        "prompt": "Medium shot at the doorway of a home in soft daylight, a proud Ethiopian father wearing a white gabi embracing his young adult son warmly with genuine relief and joy, centred composition",
+        "seed": 1008,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "the hands stir the beans, smoke rises, the camera pulls back slowly",
-        "seed": 208,
+        "prompt": "Slow push-in toward the embrace near the illuminated doorway.",
+        "seed": 2008,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "But every Sunday, I light the fire. And I do not hurry.",
-        "subtitle": "But every Sunday, I light the fire. And I do not hurry."
+        "text": "የውጤት ቀን አባቴ ፈገግ ብሎ አቀፈኝ፤ የመጨረሻው ምዕራፍ ቀልድ አይወድም አለኝ።",
+        "subtitle": "On results day, my father smiled and hugged me; he said: the final chapter does not like jokes."
+      },
+      "fallback": "kenburns"
+    },
+    {
+      "id": "s09",
+      "duration_s": 8.0,
+      "purpose": "Direct call to action to the viewer to start preparing tonight.",
+      "shot_size": "close-up",
+      "camera": "Slow zoom out",
+      "characters": [],
+      "keyframe": {
+        "prompt": "Close-up shot of an open clean notebook sitting on a dark wooden study desk at night under warm glowing lamp light, inviting atmosphere, dark blurred room background, centred composition",
+        "seed": 1009,
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
+      },
+      "motion": {
+        "prompt": "Slow zoom-out from the illuminated open book on the dark wooden table.",
+        "seed": 2009,
+        "model": "wan2.2-ti2v-5b",
+        "resolution": "480p",
+        "frames": 121
+      },
+      "narration": {
+        "text": "አሁንም ቢሆን ጊዜው አልረፈደም፤ ያንተ የመጨረሻ ምዕራፍ ዛሬ ማታ ይጀምራል።",
+        "subtitle": "Even now, it is not too late; your final chapter starts tonight."
       },
       "fallback": "kenburns"
     }
   ],
   "end_card": {
-    "text": "Made with AI: Gemini, FLUX, Wan 2.2 and ACE-Step. Story and direction by the author.",
-    "duration_s": 3
+    "text": "Made with AI (Gemini, FLUX.2, Wan 2.2, ACE-Step). Words from my father.",
+    "duration_s": 3.0
   }
 }
