@@ -3,12 +3,12 @@
   "title": "የመጨረሻው ምዕራፍ (The Final Chapter)",
   "language": "am",
   "subtitle_language": "en",
-  "target_duration_s": 71.5,
-  "style_block": "Cinematic realistic digital painting set in Addis Ababa, Ethiopia, warm amber lamp light at night, soft golden morning light, muted earth tones, gentle film grain, natural faces and hands",
+  "target_duration_s": 72.5,
+  "style_block": "Cinematic realistic digital painting set in the Ethiopian countryside, warm amber lamp light at night, soft golden morning light, muted earth tones, gentle film grain, natural faces and hands",
   "characters": [
     {
       "id": "student_boy",
-      "description": "An 18-year-old Habesha young man from Ethiopia, East African features, deep brown skin, short tightly coiled black hair, slim face, warm dark eyes, simple button-up shirt",
+      "description": "An 18-year-old Habesha young man from the Ethiopian countryside, East African features, deep brown skin, short tightly coiled black hair, slim face, warm dark eyes, simple button-up shirt",
       "reference_image": null,
       "real_person": false,
       "consent_ref": null,
@@ -21,7 +21,7 @@
     },
     {
       "id": "father_man",
-      "description": "A 55-year-old Habesha man from Ethiopia, East African features, deep brown skin, short greying tightly coiled hair and a short grey beard, kind tired eyes, wearing a white Ethiopian gabi shawl with a thin woven border over a simple shirt",
+      "description": "A 55-year-old Habesha man from the Ethiopian countryside, East African features, deep brown skin, short greying tightly coiled hair and a short grey beard, kind tired eyes, wearing a white Ethiopian gabi shawl with a thin woven border over a simple shirt",
       "reference_image": null,
       "real_person": false,
       "consent_ref": null,
@@ -44,8 +44,8 @@
       {
         "id": "cue_main",
         "start_s": 0.0,
-        "end_s": 71.0,
-        "caption": "Gentle acoustic krar and soft ambient pads building from contemplative to hopeful tone",
+        "end_s": 72.5,
+        "caption": "Gentle acoustic krar and soft ambient pads building from contemplative to hopeful tone, with a subtle radio static burst and sudden silence cut",
         "bpm": 65,
         "key": "A minor",
         "instrumental": true
@@ -56,24 +56,24 @@
       102,
       103
     ],
-    "chosen_seed": 101,
-    "choice_reason": "Reflective and warm traditional acoustic string melody creating emotional depth."
+    "chosen_seed": null,
+    "choice_reason": null
   },
   "shots": [
     {
       "id": "s01",
       "duration_s": 6.0,
-      "purpose": "Establish the quiet atmosphere of the home at night where the journey begins.",
+      "purpose": "Establish the quiet rural countryside atmosphere at night where the journey begins.",
       "shot_size": "wide",
       "camera": "Slow forward pan",
       "characters": [],
       "keyframe": {
-        "prompt": "Night in a quiet Addis Ababa neighbourhood, empty street, nobody outside, a small house with plastered pale blue walls and a corrugated iron roof behind a blue metal gate, tall eucalyptus trees, one small window glowing warm amber, dark blue sky over distant hills, centred composition",
+        "prompt": "Night in a quiet Ethiopian countryside village, unpaved dirt path, nobody outside, a small rural house with plastered earthen walls and a thatched or corrugated iron roof behind a wooden and thorn fence, tall eucalyptus trees and rolling hills in the distance, one small window glowing warm amber, starry dark sky, centred composition",
         "seed": 1001,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow forward zoom toward the glowing warm window of the house at night.",
+        "prompt": "Slow forward zoom toward the glowing warm window of the countryside house at night.",
         "seed": 2001,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
@@ -84,8 +84,8 @@
     },
     {
       "id": "s02",
-      "duration_s": 9.5,
-      "purpose": "Introduce the father delivering the pivotal warning to his child.",
+      "duration_s": 10.0,
+      "purpose": "Introduce the father and son talking about the weight of the final year in their rural home.",
       "shot_size": "medium",
       "camera": "Slow tilt up",
       "characters": [
@@ -93,39 +93,39 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Inside a modest Ethiopian home at night, whitewashed plastered walls, a woven mesob basket and a black clay jebena coffee pot on a shelf, the father standing in the doorway with a patterned cloth curtain, his 18-year-old son, a young adult nearly as tall as him, seated at a small wooden table, amber lamp light, centred composition",
+        "prompt": "Inside a modest Ethiopian countryside home at night, whitewashed earthen walls, a woven mesob basket and a black clay jebena coffee pot on a rustic shelf, the father standing in the doorway with a woven cloth curtain talking to his 18-year-old son seated at a small rough-hewn wooden table, warm amber lamp light, centred composition",
         "seed": 1002,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow tilt up from the study table to the man standing in the doorway speaking gently.",
+        "prompt": "Slow tilt up from the study table to the father speaking calmly to his seated son.",
         "seed": 2002,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
       "narration": {
-        "text": "አባቴ እንዲህ አለኝ፦ ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።",
-        "subtitle": "My father told me: an exam knows no jokes, and the result knows no forgiveness."
+        "text": "አባቴ እንዲህ አለኝ፦ የመጨረሻው ምዕራፍ ቀልድ አይወድም።",
+        "subtitle": "My father told me: the final chapter does not like jokes."
       },
       "fallback": "kenburns"
     },
     {
       "id": "s03",
       "duration_s": 8.0,
-      "purpose": "Show the past wasted opportunity and casual attitude toward studying.",
+      "purpose": "Show the past casual attitude and laughter in a rural school setting before taking focus seriously.",
       "shot_size": "medium",
       "camera": "Slow right pan",
       "characters": [
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Warm soft memory scene in an Ethiopian high school compound, the student laughing with classmates in school uniform sweaters on a wooden bench, a blue-painted classroom block with a corrugated iron roof and eucalyptus trees behind, a closed textbook beside him, golden backlight, centred composition",
+        "prompt": "Warm soft memory scene in a rural Ethiopian high school compound, the student laughing with three classmates who are also Habesha Ethiopian teenagers with deep brown skin and tightly coiled black hair, in navy school uniform sweaters, sitting on a wooden bench outdoors, simple single-storey classrooms, eucalyptus trees and green countryside hills behind, a closed textbook beside him, golden backlight, centred composition",
         "seed": 1003,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Gentle pan across the seated figures in warm outdoor light.",
+        "prompt": "Gentle pan across the seated figures in warm outdoor countryside light.",
         "seed": 2003,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
@@ -139,37 +139,40 @@
     },
     {
       "id": "s04",
-      "duration_s": 5.0,
-      "purpose": "Highlight the unused tools and initial procrastination.",
+      "duration_s": 5.5,
+      "purpose": "Artistic radio cut as the student begins studying—a vintage radio clicks off into quiet focus without explaining everything literally.",
       "shot_size": "close-up",
       "camera": "Slow push in",
       "characters": [],
       "keyframe": {
-        "prompt": "Still life close-up, no people, nobody in the frame: a small wooden table in an Ethiopian home at night, a closed plain textbook and a long new pencil next to a small glowing kerosene lamp, a corner of a white woven cloth with a colourful border, centred composition",
-        "seed": 1004,
+        "prompt": "Artistic still life close-up at night on a rustic wooden table in an Ethiopian countryside home, a vintage portable radio with a glowing dial next to an open notebook and a small kerosene lamp, shadow play across earthen wall, poetic moody atmosphere, centred composition",
+        "seed": 1014,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow camera push-in toward the wooden table under amber glow.",
-        "seed": 2004,
+        "prompt": "Slow subtle push-in as the radio dial light dims and falls into quiet stillness while shadows lengthen.",
+        "seed": 2014,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
         "frames": 121
       },
-      "narration": null,
+      "narration": {
+        "text": "ድምፁ ሲቋረጥ፣ ትኩረት ጀመረ።",
+        "subtitle": "When the sound cut off, focus began."
+      },
       "fallback": "kenburns"
     },
     {
       "id": "s05",
       "duration_s": 9.0,
-      "purpose": "Show the turn towards serious late-night preparation.",
+      "purpose": "Show the student starting serious late-night study right after the radio cut.",
       "shot_size": "medium-close-up",
       "camera": "Slow push in",
       "characters": [
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "The student leaning over a small wooden table at night in a modest Ethiopian home, reading by a small kerosene lamp, whitewashed wall and a jebena on a shelf softly blurred behind, serious focused expression, centred composition",
+        "prompt": "The student leaning over a small rustic wooden table at night in a modest Ethiopian countryside home, reading by a small kerosene lamp with a quiet unlit radio nearby, whitewashed earthen wall and a clay jebena on a shelf softly blurred behind, serious focused expression, centred composition",
         "seed": 1005,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -189,12 +192,12 @@
     {
       "id": "s06",
       "duration_s": 6.0,
-      "purpose": "Symbolize the dedication and passage of time through the worn pencil.",
+      "purpose": "Symbolize sustained dedication and passing nights through notes and a worn pencil.",
       "shot_size": "close-up",
       "camera": "Slow downward pan",
       "characters": [],
       "keyframe": {
-        "prompt": "Close-up of the same wooden table at night, a short worn pencil stub beside notebook pages filled with handwriting too small to read, a small kerosene lamp glowing, centred composition",
+        "prompt": "Close-up of the same rustic wooden table at night, a short worn pencil stub beside notebook pages filled with handwriting too small to read, a small kerosene lamp glowing, centred composition",
         "seed": 1006,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -211,19 +214,19 @@
     {
       "id": "s07",
       "duration_s": 7.0,
-      "purpose": "Show confidence and calm preparedness on exam morning.",
+      "purpose": "Show calm readiness on exam or final-year morning walking through the countryside.",
       "shot_size": "wide",
       "camera": "Slow tracking shot",
       "characters": [
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Early morning at an Ethiopian secondary school used as a national exam centre, long single-storey classroom blocks with blue doors and corrugated iron roofs, eucalyptus trees, the student walking calmly toward them holding a small pencil case, empty hands otherwise, other students far away and out of focus, soft golden sunlight, centred composition",
+        "prompt": "Early morning on a quiet dirt path in the Ethiopian countryside leading toward a rural secondary school exam centre, low classroom blocks with corrugated iron roofs, eucalyptus groves, pastures, and distant hills, the student walking calmly holding a small pencil case, empty hands otherwise, other students far away and out of focus, soft golden sunrise light, centred composition",
         "seed": 1007,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow camera tracking shot following the walking figure toward the distant building.",
+        "prompt": "Slow camera tracking shot following the walking figure along the rural path toward the distant school.",
         "seed": 2007,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
@@ -235,7 +238,7 @@
     {
       "id": "s08",
       "duration_s": 9.0,
-      "purpose": "Deliver the climax of success and the father's second proverb.",
+      "purpose": "Deliver the father's reflective closing word on the final chapter outside their rural home.",
       "shot_size": "medium",
       "camera": "Slow push in",
       "characters": [
@@ -243,12 +246,12 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Daylight at the blue metal gate of the small plastered house, an older man in a white gabi and a tall young man of about 20 with a light moustache, the young man slightly taller than the older man, standing side by side and smiling, the older man's hand proudly on the young man's shoulder, eucalyptus leaves and a corrugated iron roof behind, centred composition",
+        "prompt": "Daylight in the yard of a small countryside home in Ethiopia with a wooden fence, an older man in a white gabi and a tall young man of about 20 with a light moustache, the young man slightly taller than the older man, standing side by side and smiling, the older man's hand proudly on the young man's shoulder, eucalyptus trees, fields, and distant hills behind, centred composition",
         "seed": 1038,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow push-in toward the embrace near the illuminated doorway.",
+        "prompt": "Slow push-in toward the father and son standing together near the doorway in daylight.",
         "seed": 2008,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
@@ -263,17 +266,17 @@
     {
       "id": "s09",
       "duration_s": 9.0,
-      "purpose": "Direct call to action to the viewer to start preparing tonight.",
+      "purpose": "Close with a quiet invitation to start tonight.",
       "shot_size": "close-up",
       "camera": "Slow zoom out",
       "characters": [],
       "keyframe": {
-        "prompt": "Still life close-up, no people, empty room: an open notebook on the small wooden table at night, a small kerosene lamp glowing beside it, a white woven cloth with a colourful border on the table edge, dark softly blurred background, centred composition",
+        "prompt": "Still life close-up, no people, empty rural room: an open notebook on the small rustic wooden table at night, a small kerosene lamp glowing beside it, a white woven cloth with a colourful border on the table edge, dark softly blurred background, centred composition",
         "seed": 1009,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
-        "prompt": "Slow zoom-out from the illuminated open book on the dark wooden table.",
+        "prompt": "Slow zoom-out from the illuminated open book on the dark rustic wooden table.",
         "seed": 2009,
         "model": "wan2.2-ti2v-5b",
         "resolution": "480p",
