@@ -50,3 +50,17 @@ Target: about 10 entries. Change one thing at a time and keep the seed fixed. Ev
 - **Result:** s01, s03 and s07 now show recognisably Ethiopian streets and schools. Two new problems: s07 showed a paper with tiny unreadable text, and s01 had people at the gate on a "quiet" night.
 - **Decision:** Keep the detailed prompts. s07 now holds a pencil case instead of paper (no text in images), and s01 says "empty street, nobody outside".
 
+### E05: Why the son kept looking like a child
+- **Date:** 2026-11-25
+- **Hypothesis:** Writing "his 18-year-old son, a young adult as tall as his father" will make s08 show a young man.
+- **Change:** Three prompt versions for s08, each tried on seeds 1008, 1018 and 1038:
+  - A: "embracing his son" (the draft)
+  - B: "his 18-year-old son, a young adult as tall as his father, standing side by side"
+  - C: no word "son": "an older man… and a tall young man of about 20 with a light moustache, slightly taller than the older man"
+- **Fixed:** model, style block, character descriptions.
+- **Result:**
+  - A: a boy of about 12.
+  - B: still a boy of 12-15 on all three seeds; the age in the prompt did not override the word "son".
+  - C: young adults on 2 of 3 seeds; seed 1038 had both characters right.
+- **Decision:** Use C with seed 1038. The relationship word ("son") pulled the model toward a child harder than the stated age did; describe what the viewer sees, not who the person is. The same fix worked for s02, and "still life, no people" fixed s04 and s09, where strangers had appeared at the table.
+

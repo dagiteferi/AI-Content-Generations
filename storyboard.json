@@ -96,7 +96,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Inside a modest Ethiopian home at night, whitewashed plastered walls, a woven mesob basket and a black clay jebena coffee pot on a shelf, the father standing in the doorway with a patterned cloth curtain, the student seated at a small wooden table, amber lamp light, centred composition",
+        "prompt": "Inside a modest Ethiopian home at night, whitewashed plastered walls, a woven mesob basket and a black clay jebena coffee pot on a shelf, the father standing in the doorway with a patterned cloth curtain, his 18-year-old son, a young adult nearly as tall as him, seated at a small wooden table, amber lamp light, centred composition",
         "seed": 1002,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -148,7 +148,7 @@
       "camera": "Slow push in",
       "characters": [],
       "keyframe": {
-        "prompt": "Close-up of a small wooden table in an Ethiopian home at night, a closed plain textbook and a long new pencil next to a small glowing kerosene lamp, a corner of a white woven cloth with a colourful border, centred composition",
+        "prompt": "Still life close-up, no people, nobody in the frame: a small wooden table in an Ethiopian home at night, a closed plain textbook and a long new pencil next to a small glowing kerosene lamp, a corner of a white woven cloth with a colourful border, centred composition",
         "seed": 1004,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -255,8 +255,8 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Daylight at the blue metal gate of the small plastered house, the father in his white gabi embracing his son with relief and joy, eucalyptus leaves and a corrugated iron roof behind, centred composition",
-        "seed": 1008,
+        "prompt": "Daylight at the blue metal gate of the small plastered house, an older man in a white gabi and a tall young man of about 20 with a light moustache, the young man slightly taller than the older man, standing side by side and smiling, the older man's hand proudly on the young man's shoulder, eucalyptus leaves and a corrugated iron roof behind, centred composition",
+        "seed": 1038,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
@@ -280,7 +280,7 @@
       "camera": "Slow zoom out",
       "characters": [],
       "keyframe": {
-        "prompt": "Close-up of an open notebook on the small wooden table at night, a small kerosene lamp glowing beside it, a white woven cloth with a colourful border on the table edge, dark softly blurred room, centred composition",
+        "prompt": "Still life close-up, no people, empty room: an open notebook on the small wooden table at night, a small kerosene lamp glowing beside it, a white woven cloth with a colourful border on the table edge, dark softly blurred background, centred composition",
         "seed": 1009,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },

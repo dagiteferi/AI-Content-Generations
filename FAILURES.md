@@ -60,3 +60,10 @@ Real blockers (quota, memory, consistency, language…), what was tried, and wha
   - The retry check now matches network errors by class name, so a timeout is retried with backoff like a 503.
   - s01-s08 stayed cached, so the re-run only asked for s09.
 - **Evidence:** `runs.jsonl`, stage `narration`: s07 `latency_s` 66.9, no line for s09 in that run
+
+### F07: Safety filter flagged a family hug
+- **Date / stage / provider:** 2026-11-25 / keyframes / Cloudflare FLUX.2 klein
+- **What broke:** For s08 (father embracing his son), seed 1028 returned `400 AiError: Your output has been flagged. Please choose another prompt / input image combination` (code 3030). Seeds 1018 and 1038 of the same prompt passed.
+- **What I tried:** Kept the prompt and tried other seeds; those passed, but the son still came out as a child.
+- **What fixed it / workaround:** Changed the pose from a close embrace to standing side by side, the father's hand on his shoulder. No further flags, and the pose shows their heights better. Lesson: the filter judges the image, not only the prompt, so an innocent prompt can fail on one seed.
+- **Evidence:** test run outside the stage; error id `8e136160-9263-44e7-8949-35f778db95b5`
