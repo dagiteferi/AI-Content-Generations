@@ -15,6 +15,7 @@ from pipeline.gpu import export_bundle, import_results
 from pipeline.models import Storyboard
 from pipeline.orchestrator import STAGES, run_stages
 from pipeline.providers.gemini import GeminiText
+from pipeline.report import markdown_table, summarise, write_into
 from pipeline.smoke import run_smoke
 from pipeline.stages.reference import candidate_path
 from pipeline.stages.script import draft_storyboard
@@ -29,6 +30,8 @@ from pipeline.storyboard import (
 app = typer.Typer(help="Heritage Short: storyboard in, film out.", no_args_is_help=True, add_completion=False)
 gpu_app = typer.Typer(help="Hand GPU jobs (video, music) to Kaggle and bring results back.", no_args_is_help=True)
 app.add_typer(gpu_app, name="gpu")
+report_app = typer.Typer(help="Summaries built from runs.jsonl.", no_args_is_help=True)
+app.add_typer(report_app, name="report")
 console = Console()
 
 
@@ -197,6 +200,22 @@ def gpu_import(
     ):
         if items:
             console.print(f"  [{style}]{label}:[/] {', '.join(items)}")
+
+
+@report_app.command("costs")
+def report_costs(
+    write: Annotated[bool, typer.Option(help="Also write the table into COSTS.md.")] = False,
+) -> None:
+    """Calls, cache hits, latency, GPU minutes and list-price cost per stage."""
+    settings = Settings()
+    stages = summarise(settings.runs_path)
+    if not stages:
+        fail("runs.jsonl is empty: run the pipeline first")
+    table = markdown_table(stages)
+    console.print(table, markup=False)
+    if write:
+        write_into(settings.root / "COSTS.md", table)
+        console.print("[green]wrote[/] the table into COSTS.md")
 
 
 def main() -> None:

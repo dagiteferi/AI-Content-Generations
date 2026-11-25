@@ -1,4 +1,4 @@
-.PHONY: install schema validate smoke draft narration radio pictures film test
+.PHONY: install schema validate smoke draft narration radio pictures assemble film costs test
 
 install:
 	uv sync
@@ -24,8 +24,14 @@ radio: validate
 pictures: validate
 	uv run heritage run --stage reference --stage keyframes --stage shots
 
+assemble: validate
+	uv run heritage run --stage assemble
+
 film: install validate
 	uv run heritage run
+
+costs:
+	uv run heritage report costs --write
 
 test:
 	uv run pytest -q

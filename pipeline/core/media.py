@@ -1,3 +1,5 @@
+import json
+import re
 import shutil
 import subprocess
 import wave
@@ -47,3 +49,18 @@ def _probe_duration_s(path: Path) -> float:
         check=True,
     )
     return float(result.stdout.strip())
+
+
+def measure_loudness(path: Path, target: dict[str, float]) -> dict[str, str]:
+    """First loudnorm pass: measure integrated loudness, true peak and range of `path`."""
+    require_ffmpeg()
+    loudnorm = f"loudnorm=I={target['I']}:TP={target['TP']}:LRA={target['LRA']}:print_format=json"
+    result = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-nostats", "-i", str(path), "-af", loudnorm, "-f", "null", "-"],
+        capture_output=True,
+        text=True,
+    )
+    match = re.search(r"\{[^{}]*\"input_i\"[^{}]*\}", result.stderr)
+    if result.returncode != 0 or match is None:
+        raise StageError(f"loudness measurement failed: {result.stderr.strip()[-500:]}")
+    return json.loads(match.group(0))
