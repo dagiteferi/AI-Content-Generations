@@ -4,7 +4,7 @@
   "language": "am",
   "subtitle_language": "en",
   "target_duration_s": 76.5,
-  "style_block": "Cinematic realistic digital painting, warm amber lamp light at night, soft golden morning light, muted earth tones, Ethiopian home and school, gentle film grain, natural faces and hands",
+  "style_block": "Cinematic realistic digital painting set in Addis Ababa, Ethiopia, warm amber lamp light at night, soft golden morning light, muted earth tones, gentle film grain, natural faces and hands",
   "characters": [
     {
       "id": "student_boy",
@@ -68,7 +68,7 @@
       "camera": "Slow forward pan",
       "characters": [],
       "keyframe": {
-        "prompt": "Night view of a small modest Ethiopian stone home in a quiet neighborhood, one small window lit with warm amber light from inside, peaceful dark blue night sky, centred composition",
+        "prompt": "Night in a quiet Addis Ababa neighbourhood, empty street, nobody outside, a small house with plastered pale blue walls and a corrugated iron roof behind a blue metal gate, tall eucalyptus trees, one small window glowing warm amber, dark blue sky over distant hills, centred composition",
         "seed": 1001,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -96,7 +96,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Interior of a simple wooden bedroom at night, a middle-aged Ethiopian father in a traditional white gabi standing softly framed in the doorway looking at a young Ethiopian student seated at a wooden desk, amber lamp light, centred composition",
+        "prompt": "Inside a modest Ethiopian home at night, whitewashed plastered walls, a woven mesob basket and a black clay jebena coffee pot on a shelf, the father standing in the doorway with a patterned cloth curtain, the student seated at a small wooden table, amber lamp light, centred composition",
         "seed": 1002,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -123,7 +123,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Memory scene with warm soft lighting, a young Ethiopian student sitting outdoors on a wooden bench laughing with friends, a closed thick textbook sitting neglected beside him, soft golden backlight, centred composition",
+        "prompt": "Warm soft memory scene in an Ethiopian high school compound, the student laughing with classmates in school uniform sweaters on a wooden bench, a blue-painted classroom block with a corrugated iron roof and eucalyptus trees behind, a closed textbook beside him, golden backlight, centred composition",
         "seed": 1003,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -148,7 +148,7 @@
       "camera": "Slow push in",
       "characters": [],
       "keyframe": {
-        "prompt": "Extreme close-up of a small wooden study desk under amber oil lamp light, featuring a closed thick book and a long, untouched wooden pencil beside it, centred composition",
+        "prompt": "Close-up of a small wooden table in an Ethiopian home at night, a closed plain textbook and a long new pencil next to a small glowing kerosene lamp, a corner of a white woven cloth with a colourful border, centred composition",
         "seed": 1004,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -175,7 +175,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Medium shot of a young Ethiopian male student leaning over a wooden study desk at night, reading attentively under the warm glow of a desk lamp, serious focused expression, centred composition",
+        "prompt": "The student leaning over a small wooden table at night in a modest Ethiopian home, reading by a small kerosene lamp, whitewashed wall and a jebena on a shelf softly blurred behind, serious focused expression, centred composition",
         "seed": 1005,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -200,7 +200,7 @@
       "camera": "Slow downward pan",
       "characters": [],
       "keyframe": {
-        "prompt": "Close-up of a wooden desk surface at night, featuring a short, heavily worn pencil stub lying next to filled open notebook pages under warm lamp light, centred composition",
+        "prompt": "Close-up of the same wooden table at night, a short worn pencil stub beside notebook pages filled with handwriting too small to read, a small kerosene lamp glowing, centred composition",
         "seed": 1006,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -227,7 +227,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Wide outdoor morning scene, a young Ethiopian student walking calmly toward a large brick school hall, soft golden morning sunlight, out-of-focus background figures, centred composition",
+        "prompt": "Early morning at an Ethiopian secondary school used as a national exam centre, long single-storey classroom blocks with blue doors and corrugated iron roofs, eucalyptus trees, the student walking calmly toward them holding a small pencil case, empty hands otherwise, other students far away and out of focus, soft golden sunlight, centred composition",
         "seed": 1007,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -255,7 +255,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Medium shot at the doorway of a home in soft daylight, a proud Ethiopian father wearing a white gabi embracing his young adult son warmly with genuine relief and joy, centred composition",
+        "prompt": "Daylight at the blue metal gate of the small plastered house, the father in his white gabi embracing his son with relief and joy, eucalyptus leaves and a corrugated iron roof behind, centred composition",
         "seed": 1008,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
@@ -280,7 +280,7 @@
       "camera": "Slow zoom out",
       "characters": [],
       "keyframe": {
-        "prompt": "Close-up shot of an open clean notebook sitting on a dark wooden study desk at night under warm glowing lamp light, inviting atmosphere, dark blurred room background, centred composition",
+        "prompt": "Close-up of an open notebook on the small wooden table at night, a small kerosene lamp glowing beside it, a white woven cloth with a colourful border on the table edge, dark softly blurred room, centred composition",
         "seed": 1009,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },

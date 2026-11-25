@@ -42,3 +42,11 @@ Target: about 10 entries. Change one thing at a time and keep the seed fixed. Ev
   - Father with the B-style description (seeds 21, 22): Habesha features and a white gabi with a woven border.
 - **Decision:** Use B for both characters. A one-word nationality is not enough; describe the features.
 
+### E04: Making the places look Ethiopian
+- **Date:** 2026-11-25
+- **Hypothesis:** Like the faces (E03), "Ethiopian home" and "brick school hall" will come out generic. Naming concrete local details will place the film in Ethiopia.
+- **Change:** Rewrote every keyframe prompt with a few specific details: plastered blue walls, corrugated iron roofs, blue metal gates, eucalyptus trees, a jebena coffee pot and mesob basket, a kerosene lamp, single-storey school blocks with blue doors. The style block now says "set in Addis Ababa, Ethiopia".
+- **Fixed:** seeds, model `@cf/black-forest-labs/flux-2-klein-4b`, character descriptions.
+- **Result:** s01, s03 and s07 now show recognisably Ethiopian streets and schools. Two new problems: s07 showed a paper with tiny unreadable text, and s01 had people at the gate on a "quiet" night.
+- **Decision:** Keep the detailed prompts. s07 now holds a pencil case instead of paper (no text in images), and s01 says "empty street, nobody outside".
+
