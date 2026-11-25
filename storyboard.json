@@ -35,7 +35,7 @@
   ],
   "voice": {
     "model": "gemini-3.8-flash-tts",
-    "voice_name": "Sulafat",
+    "voice_name": "Charon",
     "style": "calm, warm and serious, like a father speaking softly at night"
   },
   "music": {
@@ -80,8 +80,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "በጸጥታ በዋጠው ሌሊት፣ ከአንድ ትንሽ ቤት መስኮት ሞቅ ያለ ብርሃን ይወጣል።",
-        "subtitle": "In the quiet night, warm light shines from the window of a small house."
+        "text": "ጸጥ ባለው ሌሊት፣ ከአንድ ትንሽ ቤት መስኮት ሞቅ ያለ ብርሃን ይወጣል።",
+        "subtitle": "On a quiet night, warm light shines from the window of a small house."
       },
       "fallback": "kenburns"
     },
@@ -187,8 +187,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "የአባቴ ቃላት ሲያስተጋቡ፣ የጠረጴዛውን መብራት አብሬ ማናት ጀመርኩ።",
-        "subtitle": "As my father's words echoed, I turned on the lamp and began studying every night."
+        "text": "የአባቴ ቃላት በጆሮዬ ሲያቃጭሉ፣ የጠረጴዛውን መብራት አብርቼ በየሌሊቱ ማጥናት ጀመርኩ።",
+        "subtitle": "With my father's words ringing in my ears, I lit the lamp and began studying every night."
       },
       "fallback": "kenburns"
     },
@@ -239,8 +239,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "በማለዳው ጸሐይ፣ በራስ መተማመን ተሰምቶኝ ወደ ፈተናው አዳራሽ አመራሁ።",
-        "subtitle": "In the morning sun, feeling calm and ready, I walked toward the exam hall."
+        "text": "በማለዳ ጸሐይ፣ ተረጋግቼና ተዘጋጅቼ ወደ ፈተናው አዳራሽ አመራሁ።",
+        "subtitle": "In the morning sun, calm and ready, I walked toward the exam hall."
       },
       "fallback": "kenburns"
     },
@@ -292,8 +292,8 @@
         "frames": 121
       },
       "narration": {
-        "text": "አሁንም ቢሆን ጊዜው አልረፈደም፤ ያንተ የመጨረሻ ምዕራፍ ዛሬ ማታ ይጀምራል።",
-        "subtitle": "Even now, it is not too late; your final chapter starts tonight."
+        "text": "የ12ኛ ክፍልም ሆነ የመውጫ ፈተና፣ ጊዜው አልረፈደም። የእናንተ የመጨረሻ ምዕራፍ ዛሬ ማታ ይጀምራል።",
+        "subtitle": "Grade 12 or exit exam, it is not too late. Your final chapter starts tonight."
       },
       "fallback": "kenburns"
     }
