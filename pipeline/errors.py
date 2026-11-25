@@ -17,4 +17,4 @@ class StageError(PipelineError):
 
 class FFmpegMissing(PipelineError):
     def __init__(self) -> None:
-        super().__init__("ffmpeg/ffprobe not found. Install it: sudo apt install ffmpeg")
+        super().__init__("FFmpeg not found. Run: make install (it comes with the imageio-ffmpeg package)")
