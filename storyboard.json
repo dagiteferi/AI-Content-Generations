@@ -9,7 +9,7 @@
     {
       "id": "student_boy",
       "description": "An 18-year-old Habesha young man from the Ethiopian countryside, East African features, deep brown skin, short tightly coiled black hair, slim face, warm dark eyes, simple button-up shirt",
-      "reference_image": null,
+      "reference_image": "references/student_boy.jpg",
       "real_person": false,
       "consent_ref": null,
       "reference_seeds": [
@@ -22,7 +22,7 @@
     {
       "id": "father_man",
       "description": "A 55-year-old Habesha man from the Ethiopian countryside, East African features, deep brown skin, short greying tightly coiled hair and a short grey beard, kind tired eyes, wearing a white Ethiopian gabi shawl with a thin woven border over a simple shirt",
-      "reference_image": null,
+      "reference_image": "references/father_man.jpg",
       "real_person": false,
       "consent_ref": null,
       "reference_seeds": [
@@ -34,7 +34,7 @@
     }
   ],
   "voice": {
-    "model": "gemini-3.8-flash-tts",
+    "model": "gemini-3.1-flash-tts-preview",
     "voice_name": "Charon",
     "style": "calm, warm and serious, like a father speaking softly at night"
   },
@@ -93,7 +93,7 @@
         "student_boy"
       ],
       "keyframe": {
-        "prompt": "Inside a modest Ethiopian countryside home at night, whitewashed earthen walls, a woven mesob basket and a black clay jebena coffee pot on a rustic shelf, the father standing in the doorway with a woven cloth curtain talking to his 18-year-old son seated at a small rough-hewn wooden table, warm amber lamp light, centred composition",
+        "prompt": "Inside a modest Ethiopian countryside home at night, whitewashed earthen walls, a woven mesob basket and a black clay jebena coffee pot on a rustic shelf, the father standing close beside his 18-year-old son who sits at a small rough-hewn wooden table, the father's hand resting on the table as he talks softly, both figures together in the centre of the frame, warm amber lamp light, tight vertical composition",
         "seed": 1002,
         "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
