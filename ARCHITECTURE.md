@@ -124,7 +124,7 @@ The source of truth is the Pydantic models in `pipeline/models.py`. `heritage sc
       "shot_size": "extreme-wide",
       "camera": "slow push-in",
       "characters": [],
-      "keyframe": { "prompt": "…", "seed": 42, "model": "flux-1-schnell" },
+      "keyframe": { "prompt": "…", "seed": 42, "model": "flux-2-klein-4b" },
       "motion":   { "prompt": "the camera pushes in gently, mist drifts", "seed": 7, "model": "wan2.2-ti2v-5b", "resolution": "480p" },
       "narration": { "text": "…source language…", "subtitle": "…English…" },
       "fallback": "kenburns"           // kenburns | still | none
@@ -216,7 +216,7 @@ One JSON object per model call (cache hits are logged too, with `cache: "hit"`):
 
 ```json
 {"ts":"2026-11-24T14:02:11Z","run_id":"r-20261124-1402","stage":"keyframes","shot":"s03",
- "provider":"cloudflare","model":"@cf/black-forest-labs/flux-1-schnell",
+ "provider":"cloudflare","model":"@cf/black-forest-labs/flux-2-klein-4b",
  "params":{"steps":4,"width":768,"height":1344},"seed":42,"cache":"miss","attempt":1,
  "latency_s":2.31,"gpu_s":null,"cost_usd_list":0.0011,"status":"ok","error":null,
  "output":"outputs/keyframes/s03.a1b2c3d4e5f6.png"}

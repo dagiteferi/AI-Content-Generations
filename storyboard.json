@@ -57,7 +57,7 @@
       "keyframe": {
         "prompt": "a small highland village at dawn, round houses with smoke rising, eucalyptus trees, mist in the valley",
         "seed": 101,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "the camera pushes in slowly, mist drifts across the valley",
@@ -84,7 +84,7 @@
       "keyframe": {
         "prompt": "an elderly woman in a white shawl kneeling by a small charcoal stove inside a round house, warm firelight",
         "seed": 102,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "she fans the coals gently, sparks rise, the camera stays still",
@@ -109,7 +109,7 @@
       "keyframe": {
         "prompt": "green coffee beans turning dark brown in a flat iron pan over glowing coals, thin smoke curling",
         "seed": 103,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "beans shift in the pan, smoke curls upward, slow tilt down",
@@ -134,7 +134,7 @@
       "keyframe": {
         "prompt": "neighbours arriving at a doorway in morning light, fresh grass scattered on the floor, low wooden stools",
         "seed": 104,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "people step through the doorway, the camera pans slowly right",
@@ -159,7 +159,7 @@
       "keyframe": {
         "prompt": "a black clay coffee pot pouring a thin stream of coffee into small white cups on a wooden tray",
         "seed": 105,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "a thin stream of coffee pours into the cups, steam rises, camera fixed",
@@ -186,7 +186,7 @@
       "keyframe": {
         "prompt": "close portrait of an elderly woman smiling softly, eyes half closed, warm firelight on her face",
         "seed": 106,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "she smiles slowly, the camera pushes in gently",
@@ -211,7 +211,7 @@
       "keyframe": {
         "prompt": "the same black clay coffee pot standing alone on a modern apartment table by a window, city lights outside",
         "seed": 107,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "the camera orbits slowly around the pot, city lights flicker",
@@ -236,7 +236,7 @@
       "keyframe": {
         "prompt": "young hands roasting coffee beans in a flat pan on a small stove in a modern kitchen, morning light",
         "seed": 108,
-        "model": "@cf/black-forest-labs/flux-1-schnell"
+        "model": "@cf/black-forest-labs/flux-2-klein-4b"
       },
       "motion": {
         "prompt": "the hands stir the beans, smoke rises, the camera pulls back slowly",

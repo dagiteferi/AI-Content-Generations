@@ -96,7 +96,7 @@
           "type": "integer"
         },
         "model": {
-          "default": "@cf/black-forest-labs/flux-1-schnell",
+          "default": "@cf/black-forest-labs/flux-2-klein-4b",
           "title": "Model",
           "type": "string"
         }
