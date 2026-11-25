@@ -8,7 +8,7 @@
   "characters": [
     {
       "id": "student_boy",
-      "description": "An 18-year-old Ethiopian young man with short black hair, warm dark eyes, wearing a simple button-up shirt",
+      "description": "An 18-year-old Habesha young man from Ethiopia, East African features, deep brown skin, short tightly coiled black hair, slim face, warm dark eyes, simple button-up shirt",
       "reference_image": null,
       "real_person": false,
       "consent_ref": null,
@@ -21,7 +21,7 @@
     },
     {
       "id": "father_man",
-      "description": "A 50-year-old Ethiopian man with gentle eyes and graying hair, draped in a traditional white woven cotton gabi",
+      "description": "A 55-year-old Habesha man from Ethiopia, East African features, deep brown skin, short greying tightly coiled hair and a short grey beard, kind tired eyes, wearing a white Ethiopian gabi shawl with a thin woven border over a simple shirt",
       "reference_image": null,
       "real_person": false,
       "consent_ref": null,
