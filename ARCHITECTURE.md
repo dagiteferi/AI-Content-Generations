@@ -65,7 +65,7 @@ heritage-short/
 │   │   ├── cache.py            # cache keys, file digests, atomic writes
 │   │   ├── runlog.py           # appends to runs.jsonl
 │   │   ├── retry.py            # logged attempts + backoff on transient errors
-│   │   └── media.py            # ffmpeg/ffprobe helpers
+│   │   └── media.py            # FFmpeg helpers (binary from imageio-ffmpeg)
 │   ├── providers/              # one adapter per external model/tool
 │   │   ├── base.py             # Protocols: TextModel, SpeechModel, ImageModel
 │   │   ├── gemini.py           # text + TTS
@@ -183,7 +183,7 @@ key = sha256(canonical_json({
 
 - The output file name contains the key. A file with that key already existing means a cache hit, and no call is made.
 - Upstream changes flow down automatically. A new keyframe prompt gives a new keyframe hash, which gives a new shot key, which gives a new assembly key. Narration, music and the other shots stay as cache hits.
-- Writes are atomic: the output goes to `*.tmp` first and is renamed only after it passes validation (non-empty, ffprobe-readable).
+- Writes are atomic: the output goes to `*.tmp` first and is renamed only after it passes validation (non-empty).
 - `--force` skips the lookup. `--dry-run` prints hit or miss for each artefact.
 
 This is exactly what the walkthrough demo shows: edit one prompt and only one keyframe, one clip and the final assembly regenerate.
@@ -270,7 +270,7 @@ FLUX.1 schnell on Workers AI is text-to-image only, so consistency comes from th
 | Retries | `tenacity` | Standard backoff patterns |
 | Gemini | `google-genai` SDK | Official client for text and TTS |
 | Cloudflare | `httpx` REST | Simple, one endpoint |
-| Media | FFmpeg / ffprobe via `subprocess` | Deterministic, covers every assembly need |
+| Media | FFmpeg 9.0.2 from the `imageio-ffmpeg` package, via `subprocess` | Deterministic, covers every assembly need, installed by `uv sync` with no system package |
 | Tests | `pytest` | Schema, cache keys, timing |
 
 ## 10. Extension points

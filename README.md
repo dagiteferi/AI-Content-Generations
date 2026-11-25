@@ -38,7 +38,6 @@ More detail in [ARCHITECTURE.md](ARCHITECTURE.md).
 - Linux or macOS (Windows works through WSL)
 - Python 3.12 or newer
 - [uv](https://docs.astral.sh/uv/) for Python dependencies
-- FFmpeg
 - Free accounts: Google AI Studio, Cloudflare, and a phone-verified Kaggle account
 
 ## Setup
@@ -50,22 +49,19 @@ git clone https://github.com/dagiteferi/AI-Content-Generations.git
 cd AI-Content-Generations
 ```
 
-### 2. Install the tools
+### 2. Install uv
 
 ```bash
-# uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# FFmpeg
-sudo apt install ffmpeg      # Ubuntu / Debian
-brew install ffmpeg          # macOS
 ```
 
-### 3. Install the Python dependencies
+### 3. Install the dependencies
 
 ```bash
 make install
 ```
+
+This also installs FFmpeg 9.0.2 through the `imageio-ffmpeg` package, so there is no system FFmpeg to set up. To use your own FFmpeg instead, set `IMAGEIO_FFMPEG_EXE=/path/to/ffmpeg`.
 
 ### 4. Get your API keys
 
@@ -227,7 +223,7 @@ tests/              unit tests
 | Problem | Fix |
 |---|---|
 | `GEMINI_API_KEY is not set` | Fill in `.env` (step 4 of Setup) |
-| `ffmpeg/ffprobe not found` | Install FFmpeg (step 2 of Setup) |
+| `FFmpeg not found` | Run `make install` again |
 | `consent` error on validate | Add the person's `consent:<id>` row to `ETHICS.md` |
 | Cloudflare `429` or quota error | The daily free allowance is used up. Run again tomorrow; finished keyframes are kept |
 | Kaggle out of memory | Keep shots at `480p`, or lower `motion.frames` in the storyboard |
