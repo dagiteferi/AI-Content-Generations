@@ -50,3 +50,13 @@ Real blockers (quota, memory, consistency, language…), what was tried, and wha
 - **What broke:** `heritage report costs` failed with `JSONDecodeError`. Line 11 of `runs.jsonl` began with 520 null bytes, most likely left by the machine restarting while the file was being written.
 - **What fixed it / workaround:** Stripped the null bytes; the record after them was intact, so nothing was lost.
 - **Evidence:** `runs.jsonl` line 11 (run `r-20261125-073921`)
+
+### F06: Narration hung on one shot
+- **Date / stage / provider:** 2026-11-25 / narration / Gemini TTS (`gemini-3.8-flash-tts`)
+- **What broke:** The first full narration run made s01-s08 (most in about 5 s, s07 in 67 s), then waited on s09 for over 10 minutes with no error. The radio cut never started.
+- **What I tried:** Found the Gemini client had no time limit, so a stuck request waited forever. Added a 90 s timeout, then found the timeout was not retried: google-genai bundles its own copy of httpx (`httpx2`), so its network errors did not match `httpx.TransportError`.
+- **What fixed it / workaround:**
+  - 90 s timeout on every Gemini call.
+  - The retry check now matches network errors by class name, so a timeout is retried with backoff like a 503.
+  - s01-s08 stayed cached, so the re-run only asked for s09.
+- **Evidence:** `runs.jsonl`, stage `narration`: s07 `latency_s` 66.9, no line for s09 in that run

@@ -15,7 +15,7 @@ def real_person_storyboard(storyboard_data) -> Storyboard:
 def test_missing_consent_is_reported(real_person_storyboard, tmp_path):
     ethics = tmp_path / "ETHICS.md"
     ethics.write_text("# Ethics\n", encoding="utf-8")
-    assert missing_consent(real_person_storyboard, ethics) == ["grandmother"]
+    assert missing_consent(real_person_storyboard, ethics) == [real_person_storyboard.characters[0].id]
     with pytest.raises(ConsentError):
         ensure_consent(real_person_storyboard, ethics)
 

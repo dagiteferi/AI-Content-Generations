@@ -4,8 +4,11 @@ from google import genai
 from google.genai import types
 
 
+TIMEOUT_MS = 90_000  # without a limit a busy Gemini call can hang forever
+
+
 def _client(api_key: str) -> genai.Client:
-    return genai.Client(api_key=api_key, http_options={"api_version": "v1beta"})
+    return genai.Client(api_key=api_key, http_options={"api_version": "v1beta", "timeout": TIMEOUT_MS})
 
 
 class GeminiText:

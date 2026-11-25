@@ -12,8 +12,14 @@ MAX_BACKOFF_S = 30.0
 MAX_ERROR_CHARS = 500
 
 
+NETWORK_ERRORS = {"TimeoutException", "TransportError"}
+
+
 def is_transient(error: Exception) -> bool:
     if isinstance(error, (httpx.TimeoutException, httpx.TransportError)):
+        return True
+    # google-genai ships its own copy of httpx, so match its network errors by name.
+    if NETWORK_ERRORS & {cls.__name__ for cls in type(error).__mro__}:
         return True
     status = getattr(error, "code", None)
     if status is None and isinstance(error, httpx.HTTPStatusError):
