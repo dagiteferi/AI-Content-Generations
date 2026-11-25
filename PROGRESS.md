@@ -1,6 +1,6 @@
 # Progress
 
-Status as of **2026-11-24 (end of day)**. Phase 1 and 2 code is done; **Phase 3 code** and **all real runs** remain. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
+Status as of **2026-11-25**. Phase 1, 2 and 3 **code** is done (branch `phase-3/edit-and-release`); **all real runs** remain. Deadline: **Thursday 2026-11-26, 23:59 EAT** (both assignments).
 
 ## Plan for tomorrow (2026-11-25), in order
 
@@ -10,10 +10,10 @@ Status as of **2026-11-24 (end of day)**. Phase 1 and 2 code is done; **Phase 3 
 | 2 | Write the story: `story.md`, `DESIGN.md` §1-2, consent in `ETHICS.md` if needed | you | Audience and feeling written down **before** generating |
 | 3 | `make draft` (or edit by hand), then `make validate` | run | Your real storyboard validates |
 | 4 | `make radio`, play it to **3+ people**, write user test 1 in `DESIGN.md` | run + you | **Phase 1 checkpoint** |
-| 5 | Let Claude read the ACE-Step 1.5 / Wan 2.2 / FLUX.2 docs; wire `acestep_music.py` | code | Music script runs |
+| 5 | ~~Wire `acestep_music.py`~~ done; confirm it on the first Kaggle run | run | Music script runs |
 | 6 | `make pictures`, then `approve-reference`; check faces and hands | run | A keyframe for every shot |
 | 7 | `gpu export shots` → Kaggle → `gpu import`; same for `music`; choose the score | run | **Phase 2 checkpoint** |
-| 8 | **Phase 3 code**: assembly stage (both ratios, subtitles, ducking, end card, loudness) | code | `make film` produces two MP4s |
+| 8 | ~~Phase 3 code~~ done; run `make assemble` once FFmpeg is installed | run | `make film` produces two MP4s |
 | 9 | User test 2, then the docs, `COSTS.md` and about 10 `EXPERIMENTS.md` entries | run + you | Thursday morning |
 | 10 | Post, walkthrough, report, submit both assignments | you | **Thursday 23:59 EAT** |
 
@@ -26,9 +26,10 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 | Repo | https://github.com/dagiteferi/AI-Content-Generations |
 | `main` | Phase 1 + Phase 2 code, all docs (up to date) |
 | `phase-1/story-and-radio-cut` | Merged into `main` (PR #2) |
-| `phase-2/pictures-and-music` | Merged into `main` (PR #3). Next branch: `phase-3/edit-and-release` from `main` |
+| `phase-2/pictures-and-music` | Merged into `main` (PR #3) |
+| `phase-3/edit-and-release` | Assembly, cost report, ACE-Step wiring (PR to `main`) |
 | Committer | `dagiteferi <dagiteferi2011@gmail.com>` (repo-local git config) |
-| Tests | 31 passing (`make test`) |
+| Tests | 44 passing (`make test`) |
 
 ## Done
 
@@ -89,7 +90,7 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 **Remaining:**
 - [ ] **Confirm the APIs against the official docs** (reading them was blocked in this session; allow it next time):
   - `kaggle/wan_shots.py`: check the diffusers class names and arguments on the first Kaggle run
-  - `kaggle/acestep_music.py`: `generate()` still raises `NotImplementedError`; wire it to the ACE-Step 1.5 API from https://github.com/ACE-Step/ACE-Step-1.5
+  - [x] `kaggle/acestep_music.py` wired to the documented Python API (`generate_music`); still to confirm on Kaggle: checkpoint download and T4 dtype
   - FLUX.2 klein multipart fields, so keyframes can be conditioned on the approved reference image
 - [ ] With real keys: `make pictures`, approve a reference, check faces and hands on every keyframe
 - [ ] `heritage gpu export shots`, run on Kaggle (480p drafts first), `heritage gpu import`
@@ -98,13 +99,13 @@ Steps 1-4 don't depend on any more code, so start there. Step 8 can be coded whi
 - [ ] Checkpoint: a rough cut with a picture for every shot and the chosen score
 
 ### Phase 3: edit, release, explain (Thursday)
-- [ ] **Assembly stage**:
-  - cut the shots to the narration slots and duck the score
-  - burn in subtitles, keeping them inside the safe area
-  - add a 2-3 s end card and normalise to -14 LUFS / -1 dBTP
-  - export **both 9:16 and 16:9**
-- [ ] `make film` runs end to end from a clean clone
-- [ ] `heritage report costs`: summarise `runs.jsonl` per stage into `COSTS.md`
+- [x] **Assembly stage** (`pipeline/stages/assemble.py`, code + unit tests; not yet rendered, FFmpeg not installed here):
+  - shots fitted to the narration slots, score ducked under the voice
+  - subtitles burned in from a frame-sized ASS file, inside the 9:16 safe area
+  - end card on black, two-pass loudness to -14 LUFS / -1 dBTP
+  - both 9:16 and 16:9
+- [ ] `make film` runs end to end from a clean clone (needs FFmpeg + keys)
+- [x] `heritage report costs [--write]`: per-stage table from `runs.jsonl` into `COSTS.md` (`make costs`)
 - [ ] User test 2 with at least 3 people on the near-final cut, recorded in `DESIGN.md`
 - [ ] Finalise `README.md`, `ARCHITECTURE.md` and `COSTS.md`; aim for about 10 entries in `EXPERIMENTS.md`
 - [ ] Post the film publicly with the platform's **AI label switched on**, writing the post yourself
@@ -126,6 +127,8 @@ make validate    # schema + consent
 make draft       # story.md -> storyboard.json
 make radio       # narration + radio cut
 make pictures    # reference, keyframes, shots (fallbacks until GPU clips arrive)
+make assemble    # final films, both ratios
+make costs       # runs.jsonl -> COSTS.md
 uv run heritage approve-reference grandmother 12
 uv run heritage gpu export shots            # then follow kaggle/README.md
 uv run heritage gpu import ~/Downloads/out.zip

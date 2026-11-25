@@ -24,7 +24,9 @@ make smoke                # one call per provider, latency logged to runs.jsonl
 | `make narration` | Generate narration per shot (Gemini TTS) |
 | `make radio` | Narration + placeholder music on black → `outputs/radio_cut/radio.mp4` |
 | `make pictures` | Reference candidates, keyframes, and shots (Ken Burns until GPU clips arrive) |
-| `make film` | Run every implemented stage end to end |
+| `make assemble` | Final edit → `outputs/final/film_9x16.mp4` and `film_16x9.mp4` |
+| `make film` | Run the whole pipeline end to end |
+| `make costs` | Summarise `runs.jsonl` per stage into `COSTS.md` |
 | `make test` | Unit tests |
 
 Finer control:
@@ -34,7 +36,9 @@ uv run heritage run --dry-run                      # what would regenerate, no c
 uv run heritage run --force                        # ignore the cache
 ```
 
-Edit one narration line in `storyboard.json` and re-run: only that shot's narration and the radio cut regenerate.
+Edit one narration line in `storyboard.json` and re-run: only that shot's narration, the mix and the final films regenerate. Every other output is a cache hit in `runs.jsonl`.
+
+Without a chosen score (`music.chosen_seed`), assembly uses placeholder music so the film is always watchable.
 
 GPU stages (video, music) run on Kaggle through a zip hand-off. See [kaggle/README.md](kaggle/README.md):
 ```bash
@@ -46,8 +50,9 @@ uv run heritage gpu import ~/Downloads/out.zip     # clips become cache hits
 ## Status
 - [x] Phase 1: contract, schema, smoke test, storyboard drafting, narration, radio cut
 - [x] Phase 2 (code): reference sheet, keyframes, Kaggle hand-off, Ken Burns fallback, music candidates
-- [ ] Phase 2 (run): real keyframes, Wan clips on Kaggle, ACE-Step wiring
-- [ ] Phase 3: assembly, both aspect ratios, end card
+- [x] Phase 2 (code): ACE-Step 1.5 wired to its Python API
+- [x] Phase 3 (code): assembly in both aspect ratios, ducked score, burned subtitles, end card, two-pass loudness, cost report
+- [ ] Real runs: keyframes, Wan clips and score on Kaggle, user tests, final film
 
 ## Docs
 - [REQUIREMENTS.md](REQUIREMENTS.md): functional and non-functional requirements

@@ -80,8 +80,9 @@ heritage-short/
 │       ├── keyframes.py        # FLUX still per shot
 │       ├── shots.py            # imported Wan clip, else Ken Burns fallback
 │       ├── music.py            # ACE-Step candidates + the storyboard's choice
-│       └── radio.py            # narration + placeholder music on black
-│                               # phase 3: assemble
+│       ├── radio.py            # narration + placeholder music on black
+│       └── assemble.py         # final edit: mix, both ratios, subtitles, end card
+│   └── report.py               # runs.jsonl -> cost table in COSTS.md
 ├── kaggle/                     # GPU side: runner.py (resumable job loop), wan_shots.py, acestep_music.py
 ├── references/                 # approved reference sheet / golden reference images
 ├── outputs/                    # generated media (large files git-ignored, manifests kept)
@@ -149,11 +150,26 @@ Validation rules beyond the types:
 | `keyframes` | `shots[].keyframe`, style block, characters, approved reference | `outputs/keyframes/<shot>.<key>.png` | prompt + style block + character text, seed, model, hash of reference image | FLUX (retry → different seed) |
 | `shots` | keyframe file, `shots[].motion` | `outputs/shots/<shot>.<key>.mp4` | keyframe hash, motion prompt, seed, model, resolution | Wan 2.2 (→ Ken Burns) |
 | `music` | `music.cues` | `outputs/music/<cue>.seed<N>.<key>.wav` | caption, bpm, key, duration, seed, model | ACE-Step |
-| `assemble` | all of the above, `end_card` | `outputs/final/film_9x16.mp4`, `film_16x9.mp4`, `subtitles.srt` | hashes of every input file + assembly params | FFmpeg (deterministic) |
+| `assemble` | narration, clips (or fallbacks), chosen score, `end_card` | `outputs/final/mix.<key>.wav`, `film_9x16.mp4`, `film_16x9.mp4`, `film.srt`, one manifest per film | mix: narration hashes, cue times, score file, mix params. Film: mix key, clip names, subtitles, end card, frame and edit params | FFmpeg (deterministic) |
 | `radio` | narration, placeholder music | `outputs/radio_cut/radio.mp4` | narration hashes | FFmpeg |
 
 Dependency order: `narration, reference, music` → `keyframes` → `shots` → `assemble`.
 With `--shot s03`, the orchestrator limits every stage to that shot, and assembly re-runs because one of its input hashes changed.
+
+### Assembly in detail
+
+Two cached steps, so changing a subtitle does not re-render the audio and changing a narration line does not need a new picture graph per shot:
+
+1. **Mix** (`mix.<key>.wav`, shared by both ratios)
+   - Narration files are padded to their slots (a slot is the planned length, or longer if the voice runs over) and concatenated, then brought to -16 LUFS.
+   - The chosen ACE-Step track for each cue is trimmed, brought to -26 LUFS, faded and placed at its cue time, scaled to the stretched timeline. With no chosen seed yet, placeholder tones stand in.
+   - `sidechaincompress` ducks the score under the voice (threshold 0.02, ratio 6, attack 300 ms, release 1500 ms).
+   - Two-pass `loudnorm`: pass 1 measures the premix, pass 2 applies the measured values with `linear=true` to reach -14 LUFS / -1 dBTP.
+2. **Picture** (one per ratio: 1080x1920 and 1920x1080)
+   - Each square clip is centre-cropped to the ratio and scaled. Keyframes are composed with the subject centred, so one generation serves both.
+   - Wan clips lose their first 0.25 s (often weak). A clip shorter than its slot is slowed by up to 1.5x, then its last frame is held.
+   - Fade in on the first shot, fade to black on the last, then the end card on black.
+   - Subtitles and the end-card text are written as an ASS file in that frame's pixels and burned in. In 9:16 they sit 420 px above the bottom, clear of the platform buttons; at most 2 lines of 40 characters.
 
 ## 5. Caching
 
