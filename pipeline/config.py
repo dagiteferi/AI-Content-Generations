@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     cloudflare_api_token: SecretStr | None = None
     kaggle_username: str | None = None
     kaggle_key: SecretStr | None = None
+    kaggle_api_token: SecretStr | None = None
 
     text_model: str = "gemini-3.8-flash"
     max_attempts: int = Field(default=3, ge=1, le=10)
