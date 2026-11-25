@@ -3,7 +3,7 @@
   "title": "የመጨረሻው ምዕራፍ (The Final Chapter)",
   "language": "am",
   "subtitle_language": "en",
-  "target_duration_s": 74.0,
+  "target_duration_s": 76.5,
   "style_block": "Cinematic realistic digital painting, warm amber lamp light at night, soft golden morning light, muted earth tones, Ethiopian home and school, gentle film grain, natural faces and hands",
   "characters": [
     {
@@ -62,7 +62,7 @@
   "shots": [
     {
       "id": "s01",
-      "duration_s": 7.0,
+      "duration_s": 8.0,
       "purpose": "Establish the quiet atmosphere of the home at night where the journey begins.",
       "shot_size": "wide",
       "camera": "Slow forward pan",
@@ -87,7 +87,7 @@
     },
     {
       "id": "s02",
-      "duration_s": 9.0,
+      "duration_s": 9.5,
       "purpose": "Introduce the father delivering the pivotal warning to his child.",
       "shot_size": "medium",
       "camera": "Slow tilt up",
@@ -274,7 +274,7 @@
     },
     {
       "id": "s09",
-      "duration_s": 8.0,
+      "duration_s": 9.0,
       "purpose": "Direct call to action to the viewer to start preparing tonight.",
       "shot_size": "close-up",
       "camera": "Slow zoom out",
