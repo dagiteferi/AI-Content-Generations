@@ -58,9 +58,10 @@ def plan_timeline(storyboard: Storyboard, narration_s: dict[str, float]) -> list
     slots: list[Slot] = []
     cursor = 0.0
     for shot in storyboard.shots:
-        spoken = narration_s[shot.id]
-        length = max(shot.duration_s, spoken + NARRATION_TAIL_S)
-        slots.append(Slot(shot.id, cursor, length, shot.duration_s, spoken, shot.narration.subtitle))
+        spoken = narration_s.get(shot.id, 0.0)
+        length = max(shot.duration_s, spoken + NARRATION_TAIL_S) if spoken else shot.duration_s
+        subtitle = shot.narration.subtitle if shot.narration else ""
+        slots.append(Slot(shot.id, cursor, length, shot.duration_s, spoken, subtitle))
         cursor += length
     return slots
 
@@ -73,6 +74,8 @@ def subtitle_chunks(text: str) -> list[str]:
 def subtitle_cues(slots: list[Slot]) -> list[Cue]:
     cues: list[Cue] = []
     for slot in slots:
+        if not slot.subtitle:
+            continue
         chunks = subtitle_chunks(slot.subtitle)
         total_chars = sum(len(chunk) for chunk in chunks)
         start = slot.start_s
@@ -113,8 +116,27 @@ def placeholder_music(duration_s: float) -> str:
     return ";".join([*tones, mix])
 
 
+def voice_graph(files: list[Path | None], slots: list[Slot], end_card_s: float) -> tuple[list[str], list[str]]:
+    """Inputs and filter lines for the voice track: each line padded to its slot, silence for silent shots."""
+    inputs: list[str] = []
+    parts: list[str] = []
+    for i, (path, slot) in enumerate(zip(files, slots)):
+        if path is None:
+            parts.append(f"anullsrc=r={SAMPLE_RATE}:cl=mono,atrim=duration={slot.length_s:.3f}[n{i}]")
+            continue
+        parts.append(
+            f"[{len(inputs) // 2}:a]aresample={SAMPLE_RATE},aformat=sample_fmts=fltp:channel_layouts=mono,"
+            f"apad=whole_dur={slot.length_s:.3f}[n{i}]"
+        )
+        inputs += ["-i", str(path)]
+    parts.append(f"anullsrc=r={SAMPLE_RATE}:cl=mono,atrim=duration={end_card_s:.3f}[tail]")
+    labels = "".join(f"[n{i}]" for i in range(len(slots))) + "[tail]"
+    parts.append(f"{labels}concat=n={len(slots) + 1}:v=0:a=1[voicecat]")
+    return inputs, parts
+
+
 def build_command(
-    narration_files: list[Path],
+    narration_files: list[Path | None],
     slots: list[Slot],
     end_card_s: float,
     subtitles: Path,
@@ -122,27 +144,19 @@ def build_command(
 ) -> list[str]:
     total_s = slots[-1].end_s + end_card_s
     width, height = FRAME_SIZE
-    video_input = len(narration_files)
+    inputs, voice = voice_graph(narration_files, slots, end_card_s)
+    video_input = len(inputs) // 2
     subtitle_input = video_input + 1
 
-    padded = [
-        f"[{i}:a]aresample={SAMPLE_RATE},aformat=sample_fmts=fltp:channel_layouts=mono,"
-        f"apad=whole_dur={slot.length_s:.3f}[n{i}]"
-        for i, slot in enumerate(slots)
-    ]
-    tail = f"anullsrc=r={SAMPLE_RATE}:cl=mono,atrim=duration={end_card_s:.3f}[tail]"
-    voice_labels = "".join(f"[n{i}]" for i in range(len(slots))) + "[tail]"
     graph = [
-        *padded,
-        tail,
-        f"{voice_labels}concat=n={len(slots) + 1}:v=0:a=1,asplit=2[voice][sidechain]",
+        *voice,
+        "[voicecat]asplit=2[voice][sidechain]",
         placeholder_music(total_s),
         f"[music][sidechain]sidechaincompress={DUCKING}[ducked]",
         f"[voice][ducked]amix=inputs=2:duration=first:normalize=0,"
         f"loudnorm={LOUDNESS},aresample={SAMPLE_RATE}[mix]",
     ]
 
-    inputs = [argument for path in narration_files for argument in ("-i", str(path))]
     return [
         *inputs,
         "-f", "lavfi", "-i", f"color=c=black:s={width}x{height}:r={FRAME_RATE}:d={total_s:.3f}",
@@ -186,7 +200,7 @@ def run(ctx: StageContext) -> None:
     voice = storyboard.voice
     files = {shot.id: narration_path(ctx.settings.outputs_dir, shot, voice) for shot in storyboard.shots}
 
-    missing = [shot_id for shot_id, path in files.items() if not path.exists()]
+    missing = [shot_id for shot_id, path in files.items() if path is not None and not path.exists()]
     if missing:
         if ctx.dry_run:
             ctx.status("radio", "would generate", note="after narration")
@@ -195,7 +209,7 @@ def run(ctx: StageContext) -> None:
             f"Narration missing for {', '.join(missing)}. Run: heritage run --stage narration"
         )
 
-    narration_s = {shot_id: audio_duration_s(path) for shot_id, path in files.items()}
+    narration_s = {shot_id: audio_duration_s(path) for shot_id, path in files.items() if path is not None}
     slots = plan_timeline(storyboard, narration_s)
     end_card_s = storyboard.end_card.duration_s
     print_timing(ctx.console, slots, end_card_s)
@@ -207,8 +221,8 @@ def run(ctx: StageContext) -> None:
     key = cache_key(
         {
             "stage": STAGE,
-            "narration": [file_digest(path) for path in files.values()],
-            "subtitles": [shot.narration.subtitle for shot in storyboard.shots],
+            "narration": [file_digest(path) if path else "silent" for path in files.values()],
+            "subtitles": [shot.narration.subtitle if shot.narration else "" for shot in storyboard.shots],
             "planned": [shot.duration_s for shot in storyboard.shots],
             "end_card_s": end_card_s,
             "mix": [DUCKING, LOUDNESS, PLACEHOLDER_TONES_HZ],

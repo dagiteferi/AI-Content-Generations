@@ -22,6 +22,8 @@ Rules:
 - Narration is written for the ear: short sentences, concrete images. Budget about
   2 words per second of shot duration. `text` is in the narration language from the
   brief; `subtitle` is its faithful English translation.
+- Show, don't tell: never narrate what the picture already shows. Leave `narration` out
+  (null) on shots that speak for themselves; aim for narration on about half the shots.
 - Every shot states its `purpose`: why the film needs it.
 - Vary shot sizes: establish with wide shots, use close-ups for feeling.
 - One idea and one gentle movement per shot.

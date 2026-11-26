@@ -29,3 +29,30 @@ def test_atomic_write_leaves_no_temporary_file(tmp_path):
     atomic_write_bytes(target, b"data")
     assert target.read_bytes() == b"data"
     assert [p.name for p in target.parent.iterdir()] == ["file.bin"]
+
+
+def test_network_errors_from_other_httpx_copies_are_transient():
+    from pipeline.core.retry import is_transient
+
+    class TransportError(Exception):
+        pass
+
+    class ReadTimeout(TransportError):
+        pass
+
+    assert is_transient(ReadTimeout("timed out"))
+    assert not is_transient(ValueError("bad input"))
+
+
+def test_deadline_stops_a_stuck_call():
+    import time
+
+    import pytest
+
+    from pipeline.core.retry import is_transient
+    from pipeline.providers.gemini import with_deadline
+
+    with pytest.raises(TimeoutError) as caught:
+        with_deadline(lambda: time.sleep(5), seconds=0.2)
+    assert is_transient(caught.value)
+    assert with_deadline(lambda: 42, seconds=1) == 42

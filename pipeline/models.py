@@ -9,7 +9,7 @@ MIN_SHOTS, MAX_SHOTS = 8, 12
 MIN_FILM_S, MAX_FILM_S = 60.0, 90.0
 
 DEFAULT_TTS_MODEL = "gemini-3.8-flash-tts"
-DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"
+DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 DEFAULT_VIDEO_MODEL = "wan2.2-ti2v-5b"
 DEFAULT_MUSIC_MODEL = "ace-step-1.5"
 
@@ -105,7 +105,7 @@ class Shot(Contract):
     characters: list[str] = Field(default_factory=list)
     keyframe: Keyframe
     motion: Motion
-    narration: Narration
+    narration: Narration | None = Field(default=None, description="Omit for a silent shot that shows instead of tells.")
     fallback: Fallback = "kenburns"
 
 

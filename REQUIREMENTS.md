@@ -63,7 +63,7 @@ Each requirement has an ID so code, tests and docs can refer to it. The **Source
 | ID | Requirement |
 |---|---|
 | NFR-01 | Prompts, seeds and parameters live in `storyboard.json`, not in code. The same storyboard with the same seeds gives the same keyframes and music within model determinism. |
-| NFR-02 | Dependencies are pinned (`uv.lock`), and the README states the Python and FFmpeg versions. |
+| NFR-02 | Dependencies are pinned (`uv.lock`), and the README states the Python and FFmpeg versions. FFmpeg is pinned through the `imageio-ffmpeg` package. |
 | NFR-03 | Assembly is deterministic: the same inputs give the same output file. |
 
 ### 2.2 Reliability and failure handling

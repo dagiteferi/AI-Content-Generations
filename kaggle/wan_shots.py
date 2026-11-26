@@ -1,7 +1,7 @@
 """Wan 2.2 TI2V-5B image-to-video for every job in jobs.json.
 
 Kaggle: GPU T4 x2, internet on.
-    !pip install -q -U diffusers transformers accelerate ftfy imageio imageio-ffmpeg
+    !pip install -q -U "diffusers>=0.43" transformers accelerate ftfy imageio imageio-ffmpeg
     !python /kaggle/input/<bundle>/wan_shots.py
 """
 
@@ -18,7 +18,8 @@ MODEL_ID = "Wan-AI/Wan2.2-TI2V-5B-Diffusers"
 
 
 def load_pipeline() -> WanImageToVideoPipeline:
-    dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+    # T4 (compute 7.5) "supports" bf16 only by slow emulation, so use fp16 below compute 8.0.
+    dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
     vae = AutoencoderKLWan.from_pretrained(MODEL_ID, subfolder="vae", torch_dtype=torch.float32)
     pipeline = WanImageToVideoPipeline.from_pretrained(MODEL_ID, vae=vae, torch_dtype=dtype)
     pipeline.enable_model_cpu_offload()

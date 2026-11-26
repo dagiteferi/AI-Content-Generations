@@ -2,7 +2,15 @@
 
 Video (Wan 2.2) and music (ACE-Step) need a GPU, so they run on Kaggle (T4 x2, about 30 h a week) and are handed off through files.
 
-## Round trip
+## One command (recommended)
+With `KAGGLE_API_TOKEN` in `.env` (and a phone-verified account), the whole round trip runs from the terminal:
+```bash
+uv run heritage gpu push shots     # upload the jobs, start the GPU notebook (T4)
+uv run heritage gpu pull shots     # prints the status; imports the clips once it has finished
+```
+The same works for `music`. You can follow the run live at `https://www.kaggle.com/code/<you>/heritage-shots-run`.
+
+## Round trip by hand
 1. Locally: `uv run heritage gpu export shots` (or `music`). This writes `kaggle/bundles/shots.zip` with `jobs.json`, the keyframes and the runner scripts.
 2. On Kaggle: **Datasets → New dataset**, upload the zip.
 3. New notebook: Accelerator **GPU T4 x2**, Internet **on**, **Add input** → your dataset.

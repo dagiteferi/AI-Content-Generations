@@ -202,6 +202,39 @@ def gpu_import(
             console.print(f"  [{style}]{label}:[/] {', '.join(items)}")
 
 
+@gpu_app.command("push")
+def gpu_push(kind: Annotated[Literal["shots", "music"], typer.Argument(help="Which jobs to run on Kaggle.")]) -> None:
+    """Upload the jobs to Kaggle and start the GPU notebook, all from the terminal."""
+    from pipeline import kaggle_remote
+
+    settings = Settings()
+    with console.status(f"Uploading {kind} jobs and starting the Kaggle notebook..."):
+        kernel_id, count = kaggle_remote.push(settings, load_valid_storyboard(settings), kind)
+    console.print(f"[green]started[/]  {count} {kind} job(s) on Kaggle: https://www.kaggle.com/code/{kernel_id}")
+    console.print(f"  check with: heritage gpu pull {kind}")
+
+
+@gpu_app.command("pull")
+def gpu_pull(kind: Annotated[Literal["shots", "music"], typer.Argument(help="Which run to fetch.")]) -> None:
+    """Check the Kaggle run; when it has finished, download and import its outputs."""
+    from pipeline import kaggle_remote
+
+    settings = Settings()
+    state = kaggle_remote.status(settings, kind)
+    console.print(f"  Kaggle {kind} run: [bold]{state}[/]")
+    if state in ("queued", "running"):
+        raise typer.Exit(code=2)
+    summary = kaggle_remote.pull(settings, load_valid_storyboard(settings), kind, RunLog(settings.runs_path))
+    for label, items, style in (
+        ("imported", summary.imported, "green"),
+        ("already present", summary.already_present, "dim"),
+        ("failed on GPU", summary.failed, "red"),
+        ("stale (storyboard changed)", summary.stale, "yellow"),
+    ):
+        if items:
+            console.print(f"  [{style}]{label}:[/] {', '.join(items)}")
+
+
 @report_app.command("costs")
 def report_costs(
     write: Annotated[bool, typer.Option(help="Also write the table into COSTS.md.")] = False,

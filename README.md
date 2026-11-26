@@ -26,7 +26,7 @@ storyboard.json ──► validate (schema + consent)
 |---|---|---|---|
 | Storyboard draft | Gemini 3.8 Flash | Gemini API | Free tier |
 | Narration | Gemini 3.8 Flash TTS | Gemini API | Free tier |
-| Keyframes | FLUX.1 schnell | Cloudflare Workers AI | Free daily allowance |
+| Keyframes | FLUX.2 klein 4B | Cloudflare Workers AI | Free daily allowance |
 | Moving shots | Wan 2.2 TI2V-5B | Kaggle GPU | Free weekly GPU hours |
 | Music | ACE-Step 1.5 | Kaggle GPU | Free weekly GPU hours |
 | Assembly | FFmpeg | Your machine | Free |
@@ -38,7 +38,6 @@ More detail in [ARCHITECTURE.md](ARCHITECTURE.md).
 - Linux or macOS (Windows works through WSL)
 - Python 3.12 or newer
 - [uv](https://docs.astral.sh/uv/) for Python dependencies
-- FFmpeg
 - Free accounts: Google AI Studio, Cloudflare, and a phone-verified Kaggle account
 
 ## Setup
@@ -50,22 +49,19 @@ git clone https://github.com/dagiteferi/AI-Content-Generations.git
 cd AI-Content-Generations
 ```
 
-### 2. Install the tools
+### 2. Install uv
 
 ```bash
-# uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# FFmpeg
-sudo apt install ffmpeg      # Ubuntu / Debian
-brew install ffmpeg          # macOS
 ```
 
-### 3. Install the Python dependencies
+### 3. Install the dependencies
 
 ```bash
 make install
 ```
+
+This also installs FFmpeg 9.0.2 through the `imageio-ffmpeg` package, so there is no system FFmpeg to set up. To use your own FFmpeg instead, set `IMAGEIO_FFMPEG_EXE=/path/to/ffmpeg`.
 
 ### 4. Get your API keys
 
@@ -80,7 +76,7 @@ Fill in `.env`:
 | `GEMINI_API_KEY` | [aistudio.google.com](https://aistudio.google.com) → **Get API key** → **Create API key** |
 | `CLOUDFLARE_ACCOUNT_ID` | [dash.cloudflare.com](https://dash.cloudflare.com) → account home page, right sidebar |
 | `CLOUDFLARE_API_TOKEN` | Profile → **API Tokens** → **Create Token** → **Workers AI** template |
-| `KAGGLE_USERNAME`, `KAGGLE_KEY` | [kaggle.com](https://www.kaggle.com) → **Settings** → verify your phone, then **API** → **Create New Token** |
+| `KAGGLE_API_TOKEN` | [kaggle.com](https://www.kaggle.com) → **Settings** → verify your phone, then **API** → **Create New Token** (a `KGAT_…` token). Older `kaggle.json` keys go in `KAGGLE_USERNAME` and `KAGGLE_KEY` instead |
 
 `.env` is git-ignored. Never commit it.
 
@@ -227,7 +223,7 @@ tests/              unit tests
 | Problem | Fix |
 |---|---|
 | `GEMINI_API_KEY is not set` | Fill in `.env` (step 4 of Setup) |
-| `ffmpeg/ffprobe not found` | Install FFmpeg (step 2 of Setup) |
+| `FFmpeg not found` | Run `make install` again |
 | `consent` error on validate | Add the person's `consent:<id>` row to `ETHICS.md` |
 | Cloudflare `429` or quota error | The daily free allowance is used up. Run again tomorrow; finished keyframes are kept |
 | Kaggle out of memory | Keep shots at `480p`, or lower `motion.frames` in the storyboard |
@@ -247,4 +243,4 @@ tests/              unit tests
 
 ## Licences
 
-Wan 2.2 and FLUX.1 schnell are Apache 2.0, ACE-Step 1.5 is MIT, and Gemini follows Google's API terms. Every film carries an AI end card and is posted with the platform's AI label switched on. See [ETHICS.md](ETHICS.md).
+Wan 2.2 and FLUX.2 klein 4B are Apache 2.0, ACE-Step 1.5 is MIT, and Gemini follows Google's API terms. Every film carries an AI end card and is posted with the platform's AI label switched on. See [ETHICS.md](ETHICS.md).

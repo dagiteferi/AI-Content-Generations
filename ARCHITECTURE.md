@@ -65,7 +65,7 @@ heritage-short/
 │   │   ├── cache.py            # cache keys, file digests, atomic writes
 │   │   ├── runlog.py           # appends to runs.jsonl
 │   │   ├── retry.py            # logged attempts + backoff on transient errors
-│   │   └── media.py            # ffmpeg/ffprobe helpers
+│   │   └── media.py            # FFmpeg helpers (binary from imageio-ffmpeg)
 │   ├── providers/              # one adapter per external model/tool
 │   │   ├── base.py             # Protocols: TextModel, SpeechModel, ImageModel
 │   │   ├── gemini.py           # text + TTS
@@ -124,7 +124,7 @@ The source of truth is the Pydantic models in `pipeline/models.py`. `heritage sc
       "shot_size": "extreme-wide",
       "camera": "slow push-in",
       "characters": [],
-      "keyframe": { "prompt": "…", "seed": 42, "model": "flux-1-schnell" },
+      "keyframe": { "prompt": "…", "seed": 42, "model": "flux-2-klein-4b" },
       "motion":   { "prompt": "the camera pushes in gently, mist drifts", "seed": 7, "model": "wan2.2-ti2v-5b", "resolution": "480p" },
       "narration": { "text": "…source language…", "subtitle": "…English…" },
       "fallback": "kenburns"           // kenburns | still | none
@@ -183,7 +183,7 @@ key = sha256(canonical_json({
 
 - The output file name contains the key. A file with that key already existing means a cache hit, and no call is made.
 - Upstream changes flow down automatically. A new keyframe prompt gives a new keyframe hash, which gives a new shot key, which gives a new assembly key. Narration, music and the other shots stay as cache hits.
-- Writes are atomic: the output goes to `*.tmp` first and is renamed only after it passes validation (non-empty, ffprobe-readable).
+- Writes are atomic: the output goes to `*.tmp` first and is renamed only after it passes validation (non-empty).
 - `--force` skips the lookup. `--dry-run` prints hit or miss for each artefact.
 
 This is exactly what the walkthrough demo shows: edit one prompt and only one keyframe, one clip and the final assembly regenerate.
@@ -216,7 +216,7 @@ One JSON object per model call (cache hits are logged too, with `cache: "hit"`):
 
 ```json
 {"ts":"2026-11-24T14:02:11Z","run_id":"r-20261124-1402","stage":"keyframes","shot":"s03",
- "provider":"cloudflare","model":"@cf/black-forest-labs/flux-1-schnell",
+ "provider":"cloudflare","model":"@cf/black-forest-labs/flux-2-klein-4b",
  "params":{"steps":4,"width":768,"height":1344},"seed":42,"cache":"miss","attempt":1,
  "latency_s":2.31,"gpu_s":null,"cost_usd_list":0.0011,"status":"ok","error":null,
  "output":"outputs/keyframes/s03.a1b2c3d4e5f6.png"}
@@ -270,7 +270,7 @@ FLUX.1 schnell on Workers AI is text-to-image only, so consistency comes from th
 | Retries | `tenacity` | Standard backoff patterns |
 | Gemini | `google-genai` SDK | Official client for text and TTS |
 | Cloudflare | `httpx` REST | Simple, one endpoint |
-| Media | FFmpeg / ffprobe via `subprocess` | Deterministic, covers every assembly need |
+| Media | FFmpeg 9.0.2 from the `imageio-ffmpeg` package, via `subprocess` | Deterministic, covers every assembly need, installed by `uv sync` with no system package |
 | Tests | `pytest` | Schema, cache keys, timing |
 
 ## 10. Extension points

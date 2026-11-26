@@ -1,0 +1,78 @@
+{
+  "key": "8d077cb84b6a",
+  "total_s": 72.5,
+  "slots": [
+    {
+      "shot_id": "s01",
+      "start_s": 0.0,
+      "length_s": 6.0,
+      "planned_s": 6.0,
+      "narration_s": 0.0,
+      "subtitle": ""
+    },
+    {
+      "shot_id": "s02",
+      "start_s": 6.0,
+      "length_s": 10.0,
+      "planned_s": 10.0,
+      "narration_s": 6.08,
+      "subtitle": "My father told me: an exam knows no jokes, and results know no forgiveness."
+    },
+    {
+      "shot_id": "s03",
+      "start_s": 16.0,
+      "length_s": 8.0,
+      "planned_s": 8.0,
+      "narration_s": 2.12,
+      "subtitle": "Back then, I did not understand."
+    },
+    {
+      "shot_id": "s04",
+      "start_s": 24.0,
+      "length_s": 5.5,
+      "planned_s": 5.5,
+      "narration_s": 3.04,
+      "subtitle": "When the sound cut off, focus began."
+    },
+    {
+      "shot_id": "s05",
+      "start_s": 29.5,
+      "length_s": 9.0,
+      "planned_s": 9.0,
+      "narration_s": 2.12,
+      "subtitle": "But his words never let me go."
+    },
+    {
+      "shot_id": "s06",
+      "start_s": 38.5,
+      "length_s": 6.0,
+      "planned_s": 6.0,
+      "narration_s": 0.0,
+      "subtitle": ""
+    },
+    {
+      "shot_id": "s07",
+      "start_s": 44.5,
+      "length_s": 7.0,
+      "planned_s": 7.0,
+      "narration_s": 0.0,
+      "subtitle": ""
+    },
+    {
+      "shot_id": "s08",
+      "start_s": 51.5,
+      "length_s": 9.0,
+      "planned_s": 9.0,
+      "narration_s": 5.68,
+      "subtitle": "That day my father smiled and said: the final chapter does not like jokes."
+    },
+    {
+      "shot_id": "s09",
+      "start_s": 60.5,
+      "length_s": 9.0,
+      "planned_s": 9.0,
+      "narration_s": 3.4,
+      "subtitle": "Your chapter begins tonight."
+    }
+  ]
+}

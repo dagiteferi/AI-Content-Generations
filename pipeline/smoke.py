@@ -56,7 +56,9 @@ def _cloudflare_flux(settings: Settings, out_dir: Path) -> str:
 
 
 def _kaggle(settings: Settings) -> str:
-    return KaggleAccount(settings.secret("kaggle_username"), settings.secret("kaggle_key")).check()
+    if settings.kaggle_api_token:
+        return KaggleAccount(api_token=settings.secret("kaggle_api_token")).check()
+    return KaggleAccount(username=settings.secret("kaggle_username"), key=settings.secret("kaggle_key")).check()
 
 
 def checks(settings: Settings, out_dir: Path) -> list[Check]:
