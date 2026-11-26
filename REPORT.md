@@ -1,6 +1,6 @@
 # Report: የመጨረሻው ምዕራፍ (The Final Chapter)
 
-**B2W0: AI-Content Generation, Codebase and Report** · _Your full name_ · 26 November 2026
+**B2W0: AI-Content Generation, Codebase and Report** · Dagmawi Teferi · 26 November 2026
 
 - **Repository:** https://github.com/dagiteferi/AI-Content-Generations
 - **Run it:** `make install` then `uv run heritage run` (the README gives each step)
@@ -12,10 +12,10 @@
 
 The night before my Grade 12 national exam, my father told me two things:
 
-> **ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።**
+> **ፈተና ቀልድ አያውቅም፤ ውጤትም ይቅርታ የለውም።**  
 > *An exam knows no jokes, and results know no forgiveness.*
 >
-> **የመጨረሻው ምዕራፍ ቀልድ አይወድም።**
+> **የመጨረሻው ምዕራፍ ቀልድ አይወድም።**  
 > *The final chapter does not like jokes.*
 
 I made a 72-second film around those two sayings. A student from the Ethiopian countryside laughs the year away. His father warns him one night. Something changes: the radio goes quiet, the lamp comes on, the pencil gets shorter. He walks calmly to the exam, and his father says the second saying on results day. The last line speaks to the viewer: **የእናንተ ምዕራፍ ዛሬ ማታ ይጀምራል** (*your chapter begins tonight*).
@@ -25,11 +25,15 @@ I made a 72-second film around those two sayings. A student from the Ethiopian c
 **What I wanted them to feel.** A quiet seriousness, then hope, ending on the thought "my final chapter has started; tonight I open the book". It should push them to start, not frighten them.
 
 **How the brief shaped the film:**
+
 - **Vertical (9:16) first**, with subjects in the centre so the 16:9 version works from the same images.
 - **Subtitles always on**, at most two lines, because many viewers start muted.
 - **The first saying comes early** (shot 2), so the hook lands within the first seconds.
 - **No failure scene.** The audience is anxious already.
 - **Time passing is shown, not written.** The pencil grows shorter instead of a calendar appearing, because image models garble text.
+
+![Three frames from the vertical film, with English subtitles](report/img/film_frames.jpg)
+*Figure 1. Frames from `film_9x16.mp4`: the first saying (s02), the late-night study (s05) and the closing line (s09). Subtitles sit inside the safe area for TikTok and Shorts.*
 
 ## 2. The pipeline
 
@@ -44,11 +48,15 @@ story.md ─draft─▶ storyboard.json ─┬─▶ narration (Gemini TTS) ─�
 ```
 
 Design choices I'd defend:
+
 - **A CLI, not a web app.** The brief asks for one command from a clean clone. `heritage run` runs everything, and `--stage`, `--shot`, `--dry-run` and `--force` let me rerun only what I need.
 - **Content-hash caching.** Each output is named by a hash of everything that affects it (prompt, seed, model, parameters, input files). When I changed one narration line, only that line was regenerated. This mattered when the TTS service kept failing: lines that had already succeeded were never lost.
 - **One log line per model call** in `runs.jsonl`: provider, model, seed, latency, cache hit, cost and error. `heritage report costs` turns it into the table in `COSTS.md`.
 - **A fallback for every shot.** If a Wan clip is missing, the shot becomes a slow Ken Burns move over its keyframe. There is always a complete film, whatever the GPU quota.
 - **FFmpeg as a Python package** (`imageio-ffmpeg`), so `make install` installs everything and nobody needs to install system software.
+
+![The nine keyframes of the storyboard](report/img/storyboard.jpg)
+*Figure 2. The nine keyframes (s01–s09), generated with FLUX.2 klein from `storyboard.json`. Each shot has one purpose, and four of them are silent.*
 
 ## 3. What I learned from my audience
 
@@ -70,7 +78,18 @@ The first images looked South Asian, not Ethiopian, and the "Ethiopian home" loo
 
 - **"Ethiopian" alone is not enough.** Describing the features worked: *"Habesha, East African features, deep brown skin, short tightly coiled black hair"*. Adding more words made it worse (a deformed hand appeared), so I stopped at the version that worked.
 - **Places need concrete objects**, not a nationality: a jebena coffee pot, a mesob basket, a kerosene lamp, eucalyptus trees, corrugated iron roofs, a white gabi with a woven border.
+
+![Reference portraits for the student and the father](report/img/faces.jpg)
+*Figure 3. Reference portraits with the final descriptions (student seeds 11–14, father seeds 21–24): clearly Habesha, with the father's white gabi and woven border.*
+
+![s03 before and after](report/img/s03_fix.jpg)
+*Figure 4. s03 before and after. Left: "laughing with classmates" gave European and Asian classmates. Right: describing the classmates as "Habesha Ethiopian teenagers with deep brown skin" fixed it.*
+
 - **The word "son" made the model draw a 12-year-old**, even with "18 years old" in the prompt. Describing what the viewer sees instead (*"an older man and a tall young man of about 20 with a light moustache"*) fixed it on two of three seeds.
+
+![s08 before and after](report/img/s08_fix.jpg)
+*Figure 5. s08 before and after. Left: "his 18-year-old son" still produced a child. Right: "a tall young man of about 20 with a light moustache", seed 1038.*
+
 - **The safety filter flagged a father hugging his son** on one seed. Standing side by side with a hand on the shoulder passed, and shows their heights better.
 
 **The lesson:** describe what is visible, not who people are or what they are called.
