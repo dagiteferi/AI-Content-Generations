@@ -21,6 +21,7 @@ AUTHOR = "Dagmawi Teferi"
 COURSE = "B2W0: AI-Content Generation · Codebase and Report"
 DATE = "26 November 2026"
 REPO = "https://github.com/dagiteferi/AI-Content-Generations"
+FILM = "https://drive.google.com/file/d/1NndCc0ncQT1b-F4hDWPv2POh61SkeOWD/view?usp=sharing"
 
 SERIF = "'Times New Roman', Times, 'Liberation Serif', 'Noto Serif Ethiopic', serif"
 
@@ -112,7 +113,7 @@ def build_html() -> str:
   <div class="am">{TITLE_AM}</div>
   <div class="subtitle">{SUBTITLE}</div>
   <div class="rule"></div>
-  <div class="meta"><b>{AUTHOR}</b><br>{DATE}<br>{REPO}</div>
+  <div class="meta"><b>{AUTHOR}</b><br>{DATE}<br>Code: <a href="{REPO}">{REPO}</a><br>Film: <a href="{FILM}">{FILM}</a></div>
 </section>
 <section class="toc"><h2>Contents</h2><ol>{toc}</ol></section>
 """

@@ -5,12 +5,15 @@
 - **Repository:** https://github.com/dagiteferi/AI-Content-Generations
 - **Run it:** `make install` then `uv run heritage run` (the README gives each step)
 - **Film:** 72.5 s, Amharic narration with English subtitles, exported as 9:16 and 16:9
+- **Watch the film:** https://drive.google.com/file/d/1NndCc0ncQT1b-F4hDWPv2POh61SkeOWD/view?usp=sharing
 
 ---
 
 ## Executive summary
 
 This report describes *The Final Chapter* (የመጨረሻው ምዕራፍ), a 72.5-second Amharic short film built around two sayings my father told me before my Grade 12 national exam. It is made for Ethiopian Grade 12 and exit-exam students, who watch on their phones. I built the film with a Python pipeline I wrote with a coding agent: one validated storyboard drives narration (Gemini TTS), keyframes (FLUX.2 klein), motion (Wan 2.2), music (ACE-Step 1.5) and the final FFmpeg edit, in both 9:16 and 16:9.
+
+**Watch the film:** [the 9:16 film on Google Drive](https://drive.google.com/file/d/1NndCc0ncQT1b-F4hDWPv2POh61SkeOWD/view?usp=sharing) (link also on the cover page)
 
 The pipeline caches every output by a content hash and logs every model call. The whole film cost about $0.22 at list price, and nothing on the free tiers. The hardest problem was making the people and places look Ethiopian; describing visible features, not nationalities or relationships, solved it. The least reliable part was free infrastructure: Gemini's main TTS model was down for hours, and Kaggle notebooks never got internet access. Fallbacks in the design meant the film was still finished.
 
