@@ -1,6 +1,6 @@
 # Report: የመጨረሻው ምዕራፍ (The Final Chapter)
 
-**B2W0: AI-Content Generation, Codebase and Report** · Dagim Teferi · 26 November 2026
+**B2W0: AI-Content Generation, Codebase and Report** · _Your full name_ · 26 November 2026
 
 - **Repository:** https://github.com/dagiteferi/AI-Content-Generations
 - **Run it:** `make install` then `uv run heritage run` (the README gives each step)
