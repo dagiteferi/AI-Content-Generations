@@ -80,3 +80,24 @@ Real blockers (quota, memory, consistency, language…), what was tried, and wha
   - A hard 120 s deadline around each TTS call, plus `TimeoutError` and `APIConnectionError` on the retry list. The run now fails cleanly after 3 logged attempts instead of hanging forever.
   - Waited and re-ran later: spoken lines already made stay cached.
 - **Evidence:** `runs.jsonl`, stage `narration`, shot s05: three `TimeoutError` attempts of 120 s each
+
+### F09: Kaggle notebooks had no internet
+- **Date / stage / provider:** 2026-11-25 / shots and music / Kaggle
+- **What broke:** Both GPU runs failed in their first minutes: `Failed to resolve 'pypi.org'` (pip install diffusers) and `Could not resolve host: github.com` (git clone ACE-Step). Nothing was generated.
+- **What I tried:**
+  - Confirmed the pushed kernel metadata had `"enable_internet": true`.
+  - Verified my phone number on Kaggle and pushed again: same error.
+  - A CPU-only probe notebook (no GPU quota used) checked internet every 20 minutes from 16:00 to 23:30. Every check failed.
+- **What fixed it / workaround:** The Ken Burns fallback built every shot from its keyframe, so the film was still complete. Next time: test GPU access on day one, and keep Colab ready as a second backend.
+- **Evidence:** `kaggle/last-shots-run.log`, `kaggle/last-music-run.log`
+
+### F10: Gemini 3.8 TTS down for hours; switched to 3.1
+- **Date / stage / provider:** 2026-11-25 / narration / Gemini TTS
+- **What broke:** After F08, `gemini-3.8-flash-tts` timed out on every attempt for over 3 hours, even on a three-word line. Three narration lines (s04, s08, s09) could not be made.
+- **What I tried:** Timed one short line on both TTS models: 3.8 timed out at 60 s, while `gemini-3.1-flash-tts-preview` answered in 5 s.
+- **What fixed it / workaround:**
+  - Re-recorded all six lines with 3.1 so the voice is the same throughout.
+  - 3.1 rejects the style instruction, so it is skipped for that model (`NO_STYLE_MODELS`).
+  - 3.1 returns bare 16-bit PCM instead of WAV, so FFmpeg could not read its duration. It is now wrapped in a WAV header at the sample rate given in the MIME type.
+  - Cost: the voice no longer gets the "calm, warm and serious" instruction, so it may sound flatter.
+- **Evidence:** `runs.jsonl`, stage `narration`, model `gemini-3.1-flash-tts-preview`
