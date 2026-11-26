@@ -1,0 +1,24 @@
+[{"stream_name":"stdout","time":1.304190281,"data":"bundle: /kaggle/input/datasets/dagiiiteferi0920/heritage-shots-jobs\n"}
+,{"stream_name":"stdout","time":1.304268532,"data":"$ /usr/bin/python3 -m pip install -q -U diffusers\u003e=0.43 transformers accelerate ftfy imageio imageio-ffmpeg\n"}
+,{"stream_name":"stderr","time":34.51546464,"data":"WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/diffusers/\n"}
+,{"stream_name":"stderr","time":67.027751446,"data":"WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/diffusers/\n"}
+,{"stream_name":"stderr","time":100.040405164,"data":"WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/diffusers/\n"}
+,{"stream_name":"stderr","time":134.051574765,"data":"WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/diffusers/\n"}
+,{"stream_name":"stderr","time":170.063988311,"data":"WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError(\"HTTPSConnection(host='pypi.org', port=443): Failed to resolve 'pypi.org' ([Errno -3] Temporary failure in name resolution)\")': /simple/diffusers/\n"}
+,{"stream_name":"stderr","time":202.083323275,"data":"ERROR: Could not find a version that satisfies the requirement diffusers\u003e=0.43 (from versions: none)\n"}
+,{"stream_name":"stderr","time":202.083716208,"data":"ERROR: No matching distribution found for diffusers\u003e=0.43\n"}
+,{"stream_name":"stderr","time":202.182348759,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":202.18301897,"data":"  File \"/kaggle/src/script.py\", line 22, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":202.183036257,"data":"    subprocess.run(command, check=True)\n"}
+,{"stream_name":"stderr","time":202.18304209,"data":"    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":202.183047352,"data":"  File \"/usr/lib/python3.13/subprocess.py\", line 578, in run\n"}
+,{"stream_name":"stderr","time":202.183052998,"data":"    raise CalledProcessError(retcode, process.args,\n"}
+,{"stream_name":"stderr","time":202.18305855,"data":"                             output=stdout, stderr=stderr)\n"}
+,{"stream_name":"stderr","time":202.183064378,"data":"subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'pip', 'install', '-q', '-U', 'diffusers\u003e=0.43', 'transformers', 'accelerate', 'ftfy', 'imageio', 'imageio-ffmpeg']' returned non-zero exit status 1.\n"}
+,{"stream_name":"stderr","time":205.316463031,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":205.3165117,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":205.69415313,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":205.694178543,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":207.703602129,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":209.086956678,"data":"[NbConvertApp] Writing 279329 bytes to __results__.html\n"}
+]
